@@ -25,4 +25,6 @@
     <string name="titre_label">Titre</string>
     <string name="image_url">Image url</string>
     <string name="contenu">Contenu</string>
+    <string name="d_tails_article">Détails Article</string>
+    <string name="retour">Retour</string>
 </resources>

@@ -30,4 +30,9 @@
         android:name="com.example.feedarticlesjetpack.fragment.NewEditArticleFragment"
         android:label="fragment_new_edit_article"
         tools:layout="@layout/fragment_new_edit_article" />
+    <fragment
+        android:id="@+id/detailsArticleFragment"
+        android:name="com.example.feedarticlesjetpack.fragment.DetailsArticleFragment"
+        android:label="fragment_details_article"
+        tools:layout="@layout/fragment_details_article" />
 </navigation>
