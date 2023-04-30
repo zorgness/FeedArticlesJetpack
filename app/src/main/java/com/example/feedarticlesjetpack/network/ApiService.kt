@@ -10,7 +10,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @PUT(ApiRoutes.USER)
-    fun register(@Body registerDto: RegisterDto): Call<SessionDto>?
+    fun register(@Body registerDto: RegisterDto): Response<SessionDto>?
 
     @FormUrlEncoded
     @POST(ApiRoutes.USER)

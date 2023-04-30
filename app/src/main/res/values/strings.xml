@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FeedArticlesJetpack</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logo">logo</string>
     <string name="feed_articles">Feed Articles</string>
@@ -27,4 +26,9 @@
     <string name="contenu">Contenu</string>
     <string name="d_tails_article">Détails Article</string>
     <string name="retour">Retour</string>
+    <string name="parameters_problem">Probléme de paramétres</string>
+    <string name="unauthorized">Non authorisé</string>
+    <string name="something_went_wrong">something went wrong</string>
+    <string name="user">utilisateur</string>
+    <string name="user_not">utilisateur non</string>
 </resources>

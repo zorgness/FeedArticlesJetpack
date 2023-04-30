@@ -5,13 +5,13 @@
 
     <data>
         <variable
-            name="login"
+            name="loginData"
             type="String" />
         <variable
-            name="password"
+            name="passwordData"
             type="String" />
         <variable
-            name="confirmPassword"
+            name="confirmPasswordData"
             type="String" />
     </data>
 
@@ -50,6 +50,7 @@
                 android:layout_height="48dp"
                 android:autofillHints="Login"
                 android:ems="10"
+                android:text="@{loginData}"
                 android:hint="@string/login_label"
                 android:inputType="textPersonName"
                 android:textColorHighlight="@color/blue_primary"
@@ -62,6 +63,7 @@
                 android:layout_marginTop="16dp"
                 android:autofillHints="Password"
                 android:ems="10"
+                android:text="@{passwordData}"
                 android:hint="@string/password_label"
                 android:inputType="textPassword"
                 android:textColorHint="@color/blue_primary" />
@@ -73,6 +75,7 @@
                 android:layout_marginTop="16dp"
                 android:autofillHints="Confirm Password"
                 android:ems="10"
+                android:text="@{confirmPasswordData}"
                 android:hint="@string/comfirmation_password"
                 android:inputType="textPassword"
                 android:textColorHint="@color/blue_primary" />

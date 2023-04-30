@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.module
 
+import android.content.Context
 import com.example.feedarticlesjetpack.network.ApiRoutes
 import com.example.feedarticlesjetpack.network.ApiService
 import com.squareup.moshi.Moshi
@@ -7,6 +8,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,6 +19,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun provideApplicationContext(
+        @ApplicationContext context: Context
+    ): Context {
+        return context
+    }
 
     @Provides
     @Singleton
@@ -62,5 +71,5 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 }
