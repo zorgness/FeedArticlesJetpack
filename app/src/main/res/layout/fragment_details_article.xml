@@ -12,38 +12,40 @@
         android:id="@+id/linearLayout_edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:orientation="vertical"
 
         >
 
 
         <!-- Top -->
         <RelativeLayout
-            android:id="@+id/top_bar"
+            android:id="@+id/relative_layout_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
+            <!--TO BE CHANGED-->
             <TextView
-                android:id="@+id/title_textview"
+                android:id="@+id/tv_details_article"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="@string/d_tails_article"
                 android:textColor="@color/blue_primary"
-                android:layout_centerHorizontal="true"
-                android:textStyle="bold"
-                android:textSize="28sp" />
-
+                android:textSize="28sp"
+                android:textStyle="bold" />
+            <!--TO BE CHANGED-->
             <ImageView
-                android:id="@+id/star_imageview"
+                android:id="@+id/iv_btn_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:contentDescription="@string/favori"
                 android:src="@android:drawable/btn_star" />
 
         </RelativeLayout>
@@ -56,95 +58,90 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/top_bar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/relative_layout_top">
 
             <TextView
-                android:id="@+id/date_textview"
+                android:id="@+id/tv_article_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="Créé le 25/02/2020"
+                android:layout_weight="1"
                 android:textColor="@color/blue_primary"
                 android:textSize="16sp"
-                android:layout_weight="1"
+                tools:text="Créé le 25/02/2020"
 
-                 />
+                />
 
 
             <TextView
-                android:id="@+id/category_textview"
+                android:id="@+id/tv_article_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="categorie: Divers"
+                android:gravity="right"
                 android:textColor="@color/blue_primary"
                 android:textSize="16sp"
-                android:gravity="right"
-                />
+                tools:text="categorie: Divers" />
 
         </LinearLayout>
 
         <!-- Title -->
         <TextView
-            android:id="@+id/content_title_textview"
+            android:id="@+id/tv_article_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            tools:text="Un titre qui peut être moyennement long"
-            android:textSize="20sp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/blue_primary"
-            app:layout_constraintTop_toBottomOf="@id/date_category_layout"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/date_category_layout"
+            tools:text="Un titre qui peut être moyennement long" />
 
         <!-- Image Article -->
         <ImageView
-            android:id="@+id/imageview"
+            android:id="@+id/iv_article_image"
             android:layout_width="wrap_content"
             android:layout_height="120dp"
+            android:contentDescription="@string/article_image"
             android:src="@drawable/feedarticles_logo"
-            app:layout_constraintTop_toBottomOf="@id/content_title_textview"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/article_image" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_article_title" />
 
         <!-- Scrollable text view -->
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageview"
-            android:padding="16dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_article_image">
 
             <TextView
-                android:id="@+id/content_textview"
+                android:id="@+id/tv_article_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue_primary"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt, erat nec efficitur sagittis, lorem ipsum feugiat magna, id bibendum augue elit eu nisl. Aenean maximus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus."
-                />
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt, erat nec efficitur sagittis, lorem ipsum feugiat magna, id bibendum augue elit eu nisl. Aenean maximus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus." />
         </ScrollView>
 
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="140dp"
-                android:text="@string/retour"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollview" />
-
+        <!--TO MODIFY? KEEP BUTTON DOWN IF TEXT IS SHORTER-->
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:text="@string/retour"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollview" />
 
 
     </LinearLayout>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
