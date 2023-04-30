@@ -1,6 +1,7 @@
 package com.example.feedarticlesjetpack.module
 
 import com.example.feedarticlesjetpack.network.ApiRoutes
+import com.example.feedarticlesjetpack.network.ApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -58,4 +59,8 @@ object AppModule {
         .client(okHttp)
         .baseUrl(ApiRoutes.BASE_URL)
         .build()
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
 }
