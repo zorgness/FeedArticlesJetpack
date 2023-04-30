@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.feedarticlesjetpack.MainFragment"
+        android:name="com.example.feedarticlesjetpack.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
