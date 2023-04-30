@@ -63,8 +63,9 @@ class RegisterViewModel @Inject constructor(
                         }
 
                         responseRegister.isSuccessful && (body != null) -> {
-                            _messageLiveData.value = responseUserStatus(body.status, REGISTER_STR, context)
-                            if(body.status == STATUS_USER_SUCCESS) {
+                            _messageLiveData.value =
+                                responseUserStatus(body.status, REGISTER_STR, context)
+                            if (body.status == STATUS_USER_SUCCESS) {
                                 context.getSharedPreferences(
                                     SHAREDPREF_NAME,
                                     Context.MODE_PRIVATE
@@ -84,13 +85,11 @@ class RegisterViewModel @Inject constructor(
                     }
 
                 }
-
+            } else
                 _messageLiveData.value = "mot de passe et confirmation sont différents"
-            }
 
+        } else
             _messageLiveData.value = "les champs ne peuvent-être vide"
-        }
-
 
     }
 

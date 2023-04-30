@@ -10,9 +10,9 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @PUT(ApiRoutes.USER)
-    fun register(@Body registerDto: RegisterDto): Response<SessionDto>?
+    suspend fun register(@Body registerDto: RegisterDto): Response<SessionDto>?
 
     @FormUrlEncoded
     @POST(ApiRoutes.USER)
-    fun login(@Field("login") login: String, @Field("mdp") mdp: String): Response<SessionDto>?
+    suspend fun login(@Field("login") login: String, @Field("mdp") mdp: String): Response<SessionDto>?
 }

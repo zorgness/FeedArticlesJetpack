@@ -30,6 +30,7 @@ class RegisterFragment: Fragment() {
             activity?.myToast(message)
         }
 
+
         myViewModel.statusLiveData.observe(this) {status ->
             if(status == STATUS_USER_SUCCESS) {
                 val navDir = RegisterFragmentDirections.actionRegisterFragmentToMainFragment()
