@@ -20,4 +20,9 @@
     <string name="favori">favori</string>
     <string name="logout">logout</string>
     <string name="article_image">article image</string>
+    <string name="enregister">Enregister</string>
+    <string name="nouvel_article">Nouvel Article</string>
+    <string name="titre_label">Titre</string>
+    <string name="image_url">Image url</string>
+    <string name="contenu">Contenu</string>
 </resources>
