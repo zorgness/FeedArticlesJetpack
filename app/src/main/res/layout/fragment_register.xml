@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
+    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.LoginFragment">
-
+    tools:context=".fragment.RegisterFragment">
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/connectez_vous"
+        android:text="@string/nouveau_compte"
         android:textColor="@color/blue_primary"
         android:textStyle="bold"
         android:textSize="28sp"
@@ -54,24 +53,26 @@
             android:hint="@string/password_label"
             android:autofillHints="Password" />
 
+        <EditText
+            android:id="@+id/editTextTextPersonName5"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/blue_primary"
+            android:hint="@string/comfirmation_password"
+            android:autofillHints="Confirm Password" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
-            android:text="@string/se_connecter" />
+            android:text="@string/s_inscrire" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"
-            android:textColor="@color/blue_primary"
-            android:text="@string/pas_de_compte_inscrivez_vous"
-            android:textAlignment="center"/>
+
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

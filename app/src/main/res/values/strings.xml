@@ -9,4 +9,7 @@
     <string name="connectez_vous">Connectez-vous</string>
     <string name="pas_de_compte_inscrivez_vous">Pas de compte ? inscrivez-vous !</string>
     <string name="se_connecter">Se connecter</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="comfirmation_password">Comfirmation Password</string>
+    <string name="nouveau_compte">Nouveau Compte</string>
 </resources>
