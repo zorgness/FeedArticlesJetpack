@@ -12,4 +12,12 @@
     <string name="s_inscrire">S\'inscrire</string>
     <string name="comfirmation_password">Comfirmation Password</string>
     <string name="nouveau_compte">Nouveau Compte</string>
+    <string name="tout_label">Tout</string>
+    <string name="sport_label">Sport</string>
+    <string name="manga_label">Manga</string>
+    <string name="divers_label">Divers</string>
+    <string name="add_new_articles">add new articles</string>
+    <string name="favori">favori</string>
+    <string name="logout">logout</string>
+    <string name="article_image">article image</string>
 </resources>

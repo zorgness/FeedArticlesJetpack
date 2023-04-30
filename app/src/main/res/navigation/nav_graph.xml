@@ -20,4 +20,9 @@
         android:name="com.example.feedarticlesjetpack.fragment.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.feedarticlesjetpack.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
 </navigation>
