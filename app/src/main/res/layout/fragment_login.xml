@@ -1,77 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.LoginFragment">
 
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tv_new_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/connectez_vous"
-        android:textColor="@color/blue_primary"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <LinearLayout
-        android:id="@+id/linearLayout_edit_text"
+        <variable
+            name="login"
+            type="String" />
+
+        <variable
+            name="password"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="160dp"
-        >
+        tools:context=".fragment.LoginFragment">
 
-        <EditText
-            android:id="@+id/et_login"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/blue_primary"
-            android:textColorHighlight="@color/blue_primary"
-            android:hint="@string/login_label"
-            android:autofillHints="Login"
-            />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:layout_marginTop="16dp"
-            android:inputType="textPassword"
-            android:textColorHint="@color/blue_primary"
-            android:hint="@string/password_label"
-            android:autofillHints="Password" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="@string/se_connecter" />
 
         <TextView
-            android:id="@+id/tv_login_to_register"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_new_edit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"
+            android:layout_marginTop="32dp"
+            android:text="@string/connectez_vous"
             android:textColor="@color/blue_primary"
-            android:text="@string/pas_de_compte_inscrivez_vous"
-            android:textAlignment="center"/>
-    </LinearLayout>
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="80dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_login"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:autofillHints="Login"
+                android:ems="10"
+                android:hint="@string/login_label"
+                android:inputType="textPersonName"
+                android:textColorHighlight="@color/blue_primary"
+                android:textColorHint="@color/blue_primary" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints="Password"
+                android:ems="10"
+                android:hint="@string/password_label"
+                android:inputType="textPassword"
+                android:textColorHint="@color/blue_primary" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:text="@string/se_connecter" />
+
+            <TextView
+                android:id="@+id/tv_login_to_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/pas_de_compte_inscrivez_vous"
+                android:textAlignment="center"
+                android:textColor="@color/blue_primary"
+                android:textSize="16sp" />
+        </LinearLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

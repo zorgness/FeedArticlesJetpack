@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <?xml version="1.0" encoding="utf-8"?>
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_article"
         android:layout_width="match_parent"
