@@ -8,12 +8,21 @@
     tools:context=".fragment.DetailsArticleFragment">
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+
+        >
 
 
         <!-- Top -->
         <RelativeLayout
             android:id="@+id/top_bar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,13 +62,13 @@
 
             <TextView
                 android:id="@+id/date_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Créé le 25/02/2020"
                 android:textColor="@color/blue_primary"
-                android:layout_marginStart="20dp"
                 android:textSize="16sp"
                 android:layout_weight="1"
+
                  />
 
 
@@ -70,7 +79,7 @@
                 tools:text="categorie: Divers"
                 android:textColor="@color/blue_primary"
                 android:textSize="16sp"
-                android:layout_weight="1"
+                android:gravity="right"
                 />
 
         </LinearLayout>
@@ -78,11 +87,11 @@
         <!-- Title -->
         <TextView
             android:id="@+id/content_title_textview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            tools:text="Content Title"
-            android:textSize="24sp"
+            tools:text="Un titre qui peut être moyennement long"
+            android:textSize="20sp"
             android:textColor="@color/blue_primary"
             app:layout_constraintTop_toBottomOf="@id/date_category_layout"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,15 +128,20 @@
         </ScrollView>
 
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/retour"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollview" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:text="@string/retour"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollview" />
+
+
+
+    </LinearLayout>
 
 
 
