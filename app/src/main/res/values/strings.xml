@@ -35,4 +35,7 @@
     <string name="user_not_authenticated">utilisateur non authentifié</string>
     <string name="login_already_used">login déjà utilisé</string>
     <string name="token_problem">authentifié mais token inchangé</string>
+    <string name="articles_unauthorized">non autorisé</string>
+    <string name="articles_param_problem">erreur de paramétres</string>
+    <string name="articles_error_connection">erreur de connection</string>
 </resources>

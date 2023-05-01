@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentLoginBinding
-import com.example.feedarticlesjetpack.databinding.FragmentRegisterBinding
 import com.example.feedarticlesjetpack.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import myToast
@@ -33,7 +32,6 @@ class LoginFragment : Fragment() {
             if (status == STATUS_USER_SUCCESS) {
                 val navDir = LoginFragmentDirections.actionLoginFragmentToMainFragment()
                 findNavController().navigate(navDir)
-
             }
         }
 

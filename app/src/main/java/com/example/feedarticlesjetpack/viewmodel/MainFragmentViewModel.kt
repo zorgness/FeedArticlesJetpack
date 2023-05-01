@@ -3,32 +3,90 @@ package com.example.feedarticlesjetpack.viewmodel
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
+import WITH_FAVORITES
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.feedarticlesjetpack.dataclass.ArticleDto
+import com.example.feedarticlesjetpack.dataclass.GetArticlesDto
+import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import responseArticlesStatus
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
-    val context: Context
+    private val apiService: ApiService,
+    private val context: Context
 ) : ViewModel() {
+
+    private val _articlesLiveData = MutableLiveData<List<ArticleDto>>()
 
     private val _messageLiveData = MutableLiveData<String>()
 
-    private val _isLogoutInLiveData = MutableLiveData<Boolean>()
+    private val _isLogoutLiveData = MutableLiveData<Boolean>()
+
+    val articlesLiveData: LiveData<List<ArticleDto>>
+        get() = _articlesLiveData
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
 
-    val isLogoutInLiveData: LiveData<Boolean>
-        get() = _isLogoutInLiveData
+    val isLogoutLiveData: LiveData<Boolean>
+        get() = _isLogoutLiveData
+
+    init {
+        getAllArticles()
+    }
+
+    private fun getAllArticles() {
+        with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
+
+            val token = this.getString(SHAREDPREF_SESSION_TOKEN, null)
+            val headers = HashMap<String, String>()
+
+            if (token != null) {
+                headers["token"] = token
+            }
+            viewModelScope.launch {
+
+                val responseCategories: Response<GetArticlesDto>? = withContext(Dispatchers.IO) {
+                   apiService.getAllArticles(WITH_FAVORITES, headers)
+                }
+
+                val body = responseCategories?.body()
+
+                when {
+                    responseCategories == null -> {
+
+                        _messageLiveData.value = "erreur du serveur"
+                    }
+
+                    responseCategories.isSuccessful && (body != null) -> {
+                        _messageLiveData.value =
+                            responseArticlesStatus(body.status, context)
+                        _articlesLiveData.value = body.articles
+                    }
+
+
+                    responseCategories.code() == 403 ->
+                        _messageLiveData.value = "erreur d'authorisation"
+                }
+
+            }
+        }
+    }
 
     fun logout() {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             edit().remove(SHAREDPREF_SESSION_TOKEN).remove(SHAREDPREF_SESSION_USER_ID).apply()
-            _isLogoutInLiveData.value = true
+            _isLogoutLiveData.value = true
             _messageLiveData.value = "bye bye"
 
         }

@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.network
 
+import com.example.feedarticlesjetpack.dataclass.GetArticlesDto
 import com.example.feedarticlesjetpack.dataclass.RegisterDto
 import com.example.feedarticlesjetpack.dataclass.SessionDto
 import retrofit2.Call
@@ -15,4 +16,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ApiRoutes.USER)
     suspend fun login(@Field("login") login: String, @Field("mdp") mdp: String): Response<SessionDto>?
+
+
+    @GET(ApiRoutes.ARTICLES)
+    suspend fun getAllArticles(@Query("with_fav") withFav: Int, @HeaderMap headers: Map<String, String>,): Response<GetArticlesDto>?
 }

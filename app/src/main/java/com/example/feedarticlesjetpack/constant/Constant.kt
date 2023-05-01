@@ -14,3 +14,12 @@ const val STATUS_USER_SUCCESS = 1
 const val STATUS_USER_FAILURE = 0
 const val STATUS_USER_PARAMETERS_PROBLEM = -1
 const val STATUS_USER_ALREADY_LOGGED = 5
+
+const val STATUS_ARTICLES_SUCCESS = "ok"
+const val STATUS_ARTICLES_UNAUTH = "unauthorized"
+const val STATUS_ARTICLES_PARAM_PROBLEM = "error_param"
+const val STATUS_ARTICLES_ERROR_CON = "error_connection"
+
+
+const val WITH_FAVORITES = 1
+const val WITHOUT_FAVORITES = 0

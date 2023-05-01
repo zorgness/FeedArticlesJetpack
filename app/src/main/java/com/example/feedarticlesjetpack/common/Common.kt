@@ -20,3 +20,11 @@ fun responseLoginStatus(status: Int?, context: Context): String =
         STATUS_USER_ALREADY_LOGGED-> context.getString(R.string.token_problem)
         else -> context.getString(R.string.something_went_wrong)
     }
+
+fun responseArticlesStatus(status: String?, context: Context): String =
+    when(status) {
+        STATUS_ARTICLES_UNAUTH -> context.getString(R.string.articles_unauthorized)
+        STATUS_ARTICLES_PARAM_PROBLEM -> context.getString(R.string.articles_param_problem)
+        STATUS_ARTICLES_ERROR_CON -> context.getString(R.string.articles_error_connection)
+        else -> context.getString(R.string.something_went_wrong)
+    }
