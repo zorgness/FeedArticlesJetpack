@@ -29,6 +29,10 @@
     <string name="parameters_problem">Probléme de paramétres</string>
     <string name="unauthorized">Non authorisé</string>
     <string name="something_went_wrong">something went wrong</string>
-    <string name="user">utilisateur</string>
-    <string name="user_not">utilisateur non</string>
+    <string name="user_register">utilisateur enregistré</string>
+    <string name="user_not_register">utilisateur non enregistré</string>
+    <string name="user_athenticated">utilisateur authentifié</string>
+    <string name="user_not_authenticated">utilisateur non authentifié</string>
+    <string name="login_already_used">login déjà utilisé</string>
+    <string name="token_problem">authentifié mais token inchangé</string>
 </resources>

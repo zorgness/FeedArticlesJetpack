@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import responseUserStatus
+import responseRegisterStatus
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -64,7 +64,7 @@ class RegisterViewModel @Inject constructor(
 
                         responseRegister.isSuccessful && (body != null) -> {
                             _messageLiveData.value =
-                                responseUserStatus(body.status, REGISTER_STR, context)
+                                responseRegisterStatus(body.status, context)
                             if (body.status == STATUS_USER_SUCCESS) {
                                 context.getSharedPreferences(
                                     SHAREDPREF_NAME,

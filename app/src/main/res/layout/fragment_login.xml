@@ -6,11 +6,11 @@
     <data>
 
         <variable
-            name="login"
+            name="loginData"
             type="String" />
 
         <variable
-            name="password"
+            name="passwordData"
             type="String" />
 
     </data>
@@ -51,6 +51,7 @@
                 android:autofillHints="Login"
                 android:ems="10"
                 android:hint="@string/login_label"
+                android:text="@={loginData}"
                 android:inputType="textPersonName"
                 android:textColorHighlight="@color/blue_primary"
                 android:textColorHint="@color/blue_primary" />
@@ -63,6 +64,7 @@
                 android:autofillHints="Password"
                 android:ems="10"
                 android:hint="@string/password_label"
+                android:text="@={passwordData}"
                 android:inputType="textPassword"
                 android:textColorHint="@color/blue_primary" />
 
