@@ -19,5 +19,5 @@ interface ApiService {
 
 
     @GET(ApiRoutes.ARTICLES)
-    suspend fun getAllArticles(@Query("with_fav") withFav: Int, @HeaderMap headers: Map<String, String>,): Response<GetArticlesDto>?
+    suspend fun getAllArticles(@Query("with_fav") withFav: Int?, @HeaderMap headers: Map<String, String>,): Response<GetArticlesDto>?
 }
