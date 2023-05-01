@@ -1,34 +1,47 @@
+package com.example.feedarticlesjetpack.common
+
+import DIVERS_CATEGORY
+import ID_DIVERS_CATEGORY
+import ID_MANGA_CATEGORY
+import ID_SPORT_CATEGORY
+import MANGA_CATEGORY
+import SPORT_CATEGORY
+import STATUS_ARTICLES_ERROR_CON
+import STATUS_ARTICLES_PARAM_PROBLEM
+import STATUS_ARTICLES_SUCCESS
+import STATUS_ARTICLES_UNAUTH
+import STATUS_USER_ALREADY_LOGGED
+import STATUS_USER_FAILURE
+import STATUS_USER_PARAMETERS_PROBLEM
+import STATUS_USER_SUCCESS
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.feedarticlesjetpack.R
+import com.example.feedarticlesjetpack.dataclass.CategoryData
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale.Category
 
 fun responseRegisterStatus(status: Int?, context: Context): String =
 
-    when(status) {
+    when (status) {
         STATUS_USER_SUCCESS -> context.getString(R.string.user_register)
         STATUS_USER_FAILURE -> context.getString(R.string.user_not_register)
         STATUS_USER_PARAMETERS_PROBLEM -> context.getString(R.string.parameters_problem)
-        STATUS_USER_ALREADY_LOGGED-> context.getString(R.string.login_already_used)
+        STATUS_USER_ALREADY_LOGGED -> context.getString(R.string.login_already_used)
         else -> context.getString(R.string.something_went_wrong)
     }
 
 fun responseLoginStatus(status: Int?, context: Context): String =
 
-    when(status) {
+    when (status) {
         STATUS_USER_SUCCESS -> context.getString(R.string.user_athenticated)
         STATUS_USER_FAILURE -> context.getString(R.string.user_not_authenticated)
         STATUS_USER_PARAMETERS_PROBLEM -> context.getString(R.string.parameters_problem)
-        STATUS_USER_ALREADY_LOGGED-> context.getString(R.string.token_problem)
+        STATUS_USER_ALREADY_LOGGED -> context.getString(R.string.token_problem)
         else -> context.getString(R.string.something_went_wrong)
     }
 
 fun responseArticlesStatus(status: String?, context: Context): String =
-    when(status) {
+    when (status) {
         STATUS_ARTICLES_SUCCESS -> context.getString(R.string.welcome)
         STATUS_ARTICLES_UNAUTH -> context.getString(R.string.articles_unauthorized)
         STATUS_ARTICLES_PARAM_PROBLEM -> context.getString(R.string.articles_param_problem)
@@ -40,8 +53,22 @@ fun responseArticlesStatus(status: String?, context: Context): String =
 //TO IMPROVE
 fun dateFormater(dateStr: String): String {
 
-    val parser =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val formatter = SimpleDateFormat("dd/MM/yyyy")
     val dateFormated = parser.parse(dateStr)?.let { formatter.format(it) }
     return dateFormated.toString()
+}
+
+val categories = listOf(
+    CategoryData(ID_SPORT_CATEGORY, SPORT_CATEGORY, R.color.sport),
+    CategoryData(ID_MANGA_CATEGORY, MANGA_CATEGORY, R.color.manga),
+    CategoryData(ID_DIVERS_CATEGORY, DIVERS_CATEGORY, R.color.divers)
+)
+
+//TO IMPROVE
+fun getCategoryById(categoryId: Int): CategoryData? {
+    val category = categories.find {
+        it.id == categoryId
+    }
+    return  category
 }

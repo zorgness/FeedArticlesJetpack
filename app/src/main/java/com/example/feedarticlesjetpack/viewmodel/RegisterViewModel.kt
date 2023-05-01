@@ -1,6 +1,5 @@
 package com.example.feedarticlesjetpack.viewmodel
 
-import REGISTER_STR
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
@@ -10,20 +9,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.feedarticlesjetpack.dataclass.RegisterDto
 import com.example.feedarticlesjetpack.dataclass.SessionDto
-import com.example.feedarticlesjetpack.fragment.LoginFragmentDirections
-import com.example.feedarticlesjetpack.fragment.RegisterFragmentDirections
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import responseRegisterStatus
+import com.example.feedarticlesjetpack.common.responseRegisterStatus
 import retrofit2.Response
 import javax.inject.Inject
 

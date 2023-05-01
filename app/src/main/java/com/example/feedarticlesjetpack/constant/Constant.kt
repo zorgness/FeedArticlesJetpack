@@ -7,6 +7,10 @@ const val ID_SPORT_CATEGORY = 1
 const val ID_MANGA_CATEGORY = 2
 const val ID_DIVERS_CATEGORY = 3
 
+const val SPORT_CATEGORY = "sport"
+const val MANGA_CATEGORY = "manga"
+const val DIVERS_CATEGORY = "divers"
+
 const val REGISTER_STR = "enregister"
 const val LOGIN_STR = "authentifié"
 

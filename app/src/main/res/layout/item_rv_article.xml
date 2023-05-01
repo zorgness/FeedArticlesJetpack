@@ -17,8 +17,10 @@
     app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
+            android:id="@+id/rl_article"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <!-- Image -->
             <ImageView
@@ -37,6 +39,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toStartOf="@+id/tv_article_date"
                 android:layout_toEndOf="@+id/iv_article_item"
+                android:layout_marginStart="8dp"
                 tools:text="Item Title"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -51,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/tv_article_title"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
                 tools:text="May 1, 2023"
                 android:textColor="@color/blue_primary"
                 android:textSize="16sp" />
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_article_title"
                 android:layout_marginTop="24dp"
+                android:layout_marginStart="8dp"
                 android:layout_toStartOf="@+id/tv_article_date"
                 android:layout_toEndOf="@+id/iv_article_item"
                 tools:text="Item description"

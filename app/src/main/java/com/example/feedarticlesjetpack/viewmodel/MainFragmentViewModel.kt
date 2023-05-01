@@ -16,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import responseArticlesStatus
+import com.example.feedarticlesjetpack.common.responseArticlesStatus
 import retrofit2.Response
 import javax.inject.Inject
 
