@@ -45,6 +45,11 @@ class MainFragmentViewModel @Inject constructor(
         getAllArticles()
     }
 
+
+    fun getCheckedCategory(checkedId: Int) {
+        _messageLiveData.value = checkedId.toString()
+    }
+
     private fun getAllArticles() {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
 

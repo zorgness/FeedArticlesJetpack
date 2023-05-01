@@ -1,9 +1,15 @@
 package com.example.feedarticlesjetpack.fragment
 
+import ID_ALL_CATEGORY
+import ID_DIVERS_CATEGORY
+import ID_MANGA_CATEGORY
+import ID_SPORT_CATEGORY
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,7 +46,6 @@ class MainFragment : Fragment() {
         }
 
 
-
     }
 
     override fun onCreateView(
@@ -62,6 +67,20 @@ class MainFragment : Fragment() {
             val navDir = MainFragmentDirections.actionMainFragmentToNewEditArticleFragment()
             findNavController().navigate(navDir)
         }
+
+        fun getCategoryIdRadioButton(checkedId: Int) =
+            when (checkedId) {
+                binding.radioAll.id -> ID_ALL_CATEGORY
+                binding.radioSport.id -> ID_SPORT_CATEGORY
+                binding.radioManga.id -> ID_MANGA_CATEGORY
+                binding.radioDivers.id -> ID_DIVERS_CATEGORY
+                else -> ID_ALL_CATEGORY
+            }
+
+        binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
+            myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
+        }
+
 
         return binding.root
     }
