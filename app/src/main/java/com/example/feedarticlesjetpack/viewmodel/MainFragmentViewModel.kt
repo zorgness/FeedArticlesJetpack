@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ID_ALL_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
@@ -28,12 +29,17 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _articlesLiveData = MutableLiveData<List<ArticleDto>>()
 
+    private val _categoryIdLiveData = MutableLiveData<Int>()
+
     private val _messageLiveData = MutableLiveData<String>()
 
     private val _isLogoutLiveData = MutableLiveData<Boolean>()
 
     val articlesLiveData: LiveData<List<ArticleDto>>
         get() = _articlesLiveData
+
+    private val categoryIdLiveData: LiveData<Int>
+        get() = _categoryIdLiveData
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
@@ -47,7 +53,8 @@ class MainFragmentViewModel @Inject constructor(
 
 
     fun getCheckedCategory(checkedId: Int) {
-        _messageLiveData.value = checkedId.toString()
+        _categoryIdLiveData.value = checkedId
+        getAllArticles()
     }
 
     private fun getAllArticles() {
@@ -62,21 +69,25 @@ class MainFragmentViewModel @Inject constructor(
             viewModelScope.launch {
 
                 val responseCategories: Response<GetArticlesDto>? = withContext(Dispatchers.IO) {
-                   apiService.getAllArticles(WITH_FAVORITES, headers)
+                    apiService.getAllArticles(WITH_FAVORITES, headers)
                 }
 
                 val body = responseCategories?.body()
 
                 when {
                     responseCategories == null -> {
-
                         _messageLiveData.value = "erreur du serveur"
                     }
 
                     responseCategories.isSuccessful && (body != null) -> {
-                        _messageLiveData.value =
-                            responseArticlesStatus(body.status, context)
-                        _articlesLiveData.value = body.articles
+                        /* _messageLiveData.value =
+                             responseArticlesStatus(body.status, context)*/
+                        if (categoryIdLiveData.value == ID_ALL_CATEGORY || categoryIdLiveData.value == null)
+                            _articlesLiveData.value = body.articles
+                        else
+                            _articlesLiveData.value = body.articles.filter { element ->
+                                element.categorie == categoryIdLiveData.value
+                            }
                     }
 
 
