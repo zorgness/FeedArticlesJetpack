@@ -58,6 +58,11 @@ class MainFragment : Fragment() {
             myViewModel.logout()
         }
 
+        binding.btnNewArticle.setOnClickListener {
+            val navDir = MainFragmentDirections.actionMainFragmentToNewEditArticleFragment()
+            findNavController().navigate(navDir)
+        }
+
         return binding.root
     }
 
