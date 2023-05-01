@@ -1,5 +1,11 @@
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.feedarticlesjetpack.R
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 fun responseRegisterStatus(status: Int?, context: Context): String =
 
@@ -29,3 +35,13 @@ fun responseArticlesStatus(status: String?, context: Context): String =
         STATUS_ARTICLES_ERROR_CON -> context.getString(R.string.articles_error_connection)
         else -> context.getString(R.string.something_went_wrong)
     }
+
+
+//TO IMPROVE
+fun dateFormater(dateStr: String): String {
+
+    val parser =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val formatter = SimpleDateFormat("dd/MM/yyyy")
+    val dateFormated = parser.parse(dateStr)?.let { formatter.format(it) }
+    return dateFormated.toString()
+}

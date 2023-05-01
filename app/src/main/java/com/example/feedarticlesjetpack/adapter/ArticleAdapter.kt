@@ -10,6 +10,7 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.ItemRvArticleBinding
 import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.squareup.picasso.Picasso
+import dateFormater
 
 class ArticleDiffUtil : DiffUtil.ItemCallback<ArticleDto>() {
     override fun areItemsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
@@ -42,7 +43,7 @@ class ArticleAdapter ():  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHold
 
         with(holder.binding) {
             tvArticleTitle.text = article.titre
-            tvArticleDate.text = article.createdAt //toFormatDate
+            tvArticleDate.text = dateFormater(article.createdAt) //toFormatDate
             tvArticleDescription.text = article.descriptif
 
             if (article.urlImage.isEmpty()) {
