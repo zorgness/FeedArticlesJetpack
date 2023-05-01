@@ -71,6 +71,8 @@
                 android:id="@+id/checkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@drawable/custom_checkbox"
+                android:paddingHorizontal="4dp"
                 android:text="@string/tout_label" />
 
             <CheckBox
@@ -78,6 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:button="@drawable/custom_checkbox"
+                android:paddingHorizontal="4dp"
                 android:text="@string/sport_label" />
 
             <CheckBox
@@ -85,6 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:button="@drawable/custom_checkbox"
+                android:paddingHorizontal="4dp"
                 android:text="@string/manga_label" />
 
             <CheckBox
@@ -92,6 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:button="@drawable/custom_checkbox"
+                android:paddingHorizontal="4dp"
                 android:text="@string/divers_label" />
 
         </LinearLayout>
