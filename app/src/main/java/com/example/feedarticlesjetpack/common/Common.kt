@@ -10,6 +10,10 @@ import STATUS_ARTICLES_ERROR_CON
 import STATUS_ARTICLES_PARAM_PROBLEM
 import STATUS_ARTICLES_SUCCESS
 import STATUS_ARTICLES_UNAUTH
+import STATUS_NEW_ARTICLE_FAILURE
+import STATUS_NEW_ARTICLE_PARAM_PROBLEM
+import STATUS_NEW_ARTICLE_SUCCESS
+import STATUS_NEW_ARTICLE_UNAUTHORIZED
 import STATUS_USER_ALREADY_LOGGED
 import STATUS_USER_FAILURE
 import STATUS_USER_PARAMETERS_PROBLEM
@@ -21,7 +25,6 @@ import java.text.SimpleDateFormat
 import java.util.Locale.Category
 
 fun responseRegisterStatus(status: Int?, context: Context): String =
-
     when (status) {
         STATUS_USER_SUCCESS -> context.getString(R.string.user_register)
         STATUS_USER_FAILURE -> context.getString(R.string.user_not_register)
@@ -31,7 +34,6 @@ fun responseRegisterStatus(status: Int?, context: Context): String =
     }
 
 fun responseLoginStatus(status: Int?, context: Context): String =
-
     when (status) {
         STATUS_USER_SUCCESS -> context.getString(R.string.user_athenticated)
         STATUS_USER_FAILURE -> context.getString(R.string.user_not_authenticated)
@@ -46,6 +48,15 @@ fun responseArticlesStatus(status: String?, context: Context): String =
         STATUS_ARTICLES_UNAUTH -> context.getString(R.string.articles_unauthorized)
         STATUS_ARTICLES_PARAM_PROBLEM -> context.getString(R.string.articles_param_problem)
         STATUS_ARTICLES_ERROR_CON -> context.getString(R.string.articles_error_connection)
+        else -> context.getString(R.string.something_went_wrong)
+    }
+
+fun responseNewArticleStatus(status: Int?, context: Context): String =
+    when(status) {
+        STATUS_NEW_ARTICLE_SUCCESS -> context.getString(R.string.new_article_success)
+        STATUS_NEW_ARTICLE_FAILURE -> context.getString(R.string.new_article_failure)
+        STATUS_NEW_ARTICLE_PARAM_PROBLEM-> context.getString(R.string.parameters_problem)
+        STATUS_NEW_ARTICLE_UNAUTHORIZED-> context.getString(R.string.unauthorized)
         else -> context.getString(R.string.something_went_wrong)
     }
 

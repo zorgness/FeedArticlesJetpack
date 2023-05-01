@@ -1,8 +1,6 @@
 package com.example.feedarticlesjetpack.network
 
-import com.example.feedarticlesjetpack.dataclass.GetArticlesDto
-import com.example.feedarticlesjetpack.dataclass.RegisterDto
-import com.example.feedarticlesjetpack.dataclass.SessionDto
+import com.example.feedarticlesjetpack.dataclass.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -20,4 +18,8 @@ interface ApiService {
 
     @GET(ApiRoutes.ARTICLES)
     suspend fun getAllArticles(@Query("with_fav") withFav: Int?, @HeaderMap headers: Map<String, String>,): Response<GetArticlesDto>?
+
+    @Headers("Content-Type: application/json")
+    @PUT(ApiRoutes.ARTICLES)
+    suspend fun newArticles(@Body newArticleDto: NewArticleDto, @HeaderMap headers: Map<String, String>,): Response<StatusDto>?
 }

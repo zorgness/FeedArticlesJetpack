@@ -3,6 +3,7 @@ package com.example.feedarticlesjetpack.fragment
 import ID_DIVERS_CATEGORY
 import ID_MANGA_CATEGORY
 import ID_SPORT_CATEGORY
+import STATUS_NEW_ARTICLE_SUCCESS
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import myToast
 
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
@@ -22,6 +26,17 @@ class NewEditArticleFragment : Fragment() {
     private val myViewModel: NewEditFragmentViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        myViewModel.messageLiveData.observe(this) { message ->
+            activity?.myToast(message)
+        }
+
+
+        myViewModel.statusLiveData.observe(this) { status ->
+            if (status == STATUS_NEW_ARTICLE_SUCCESS) {
+                findNavController().navigate(R.id.mainFragment)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -30,6 +45,26 @@ class NewEditArticleFragment : Fragment() {
     ): View {
         val binding: FragmentNewEditArticleBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_edit_article, container, false)
+
+
+        //FIND ANOTHER SOLUTION WITH DATA BINDING
+        binding.etImageUrl.onFocusChangeListener = View.OnFocusChangeListener { _, isFocus ->
+            val urlImageToVisualize = binding.etImageUrl.text.toString().trim { it <= ' ' }
+            if (urlImageToVisualize.isNotEmpty() && !isFocus) {
+                Picasso.get()
+                    .load(urlImageToVisualize)
+                    .resize(300, 300)
+                    .error(R.drawable.feedarticles_logo)
+                    .into(binding.ivArticleImage)
+
+            } else if (urlImageToVisualize.isEmpty()) {
+                Picasso.get()
+                    .load(R.drawable.feedarticles_logo)
+                    .resize(300, 300)
+                    .into(binding.ivArticleImage)
+            }
+        }
+        //FIND ANOTHER SOLUTION WITH DATA BINDING
 
         fun getCategoryIdRadioButton(checkedId: Int) =
             when (checkedId) {

@@ -26,8 +26,8 @@
     <string name="contenu">Contenu</string>
     <string name="d_tails_article">Détails Article</string>
     <string name="retour">Retour</string>
-    <string name="parameters_problem">Probléme de paramétres</string>
-    <string name="unauthorized">Non authorisé</string>
+    <string name="parameters_problem">probléme de paramétres</string>
+    <string name="unauthorized">non authorisé</string>
     <string name="something_went_wrong">something went wrong</string>
     <string name="user_register">utilisateur enregistré</string>
     <string name="user_not_register">utilisateur non enregistré</string>
@@ -39,4 +39,7 @@
     <string name="articles_param_problem">erreur de paramétres</string>
     <string name="articles_error_connection">erreur de connection</string>
     <string name="welcome">bienvenue</string>
+    <string name="new_article_success">article créé</string>
+    <string name="new_article_failure">pas de création</string>
+
 </resources>
