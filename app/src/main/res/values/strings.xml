@@ -38,4 +38,5 @@
     <string name="articles_unauthorized">non autorisé</string>
     <string name="articles_param_problem">erreur de paramétres</string>
     <string name="articles_error_connection">erreur de connection</string>
+    <string name="welcome">bienvenue</string>
 </resources>
