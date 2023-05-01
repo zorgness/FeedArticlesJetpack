@@ -1,134 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout5"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.NewEditArticleFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tv_new_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nouvel_article"
-        android:textColor="@color/blue_primary"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <LinearLayout
-        android:id="@+id/linearLayout_edit_text"
+        <variable
+            name="titleData"
+            type="String" />
+
+        <variable
+            name="descriptionData"
+            type="String" />
+
+        <variable
+            name="imageUrlData"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frameLayout5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="160dp"
-        >
+        tools:context=".fragment.NewEditArticleFragment">
 
-        <EditText
-            android:id="@+id/et_title_article"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/blue_primary"
-            android:textColorHighlight="@color/blue_primary"
-            android:hint="@string/titre_label"
-            android:autofillHints="titre"
-            />
-
-       <!-- TO BE CHANGED -->
-        <EditText
-            android:id="@+id/et_description_article"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:ems="10"
-            android:layout_marginTop="16dp"
-            android:inputType="textMultiLine"
-            android:textColorHint="@color/blue_primary"
-            android:gravity="top|start"
-            android:hint="@string/contenu"
-            android:lines="6"
-            android:autofillHints="Contenu" />
-        <!-- TO BE CHANGED -->
-
-
-        <EditText
-            android:id="@+id/et_image_url"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:layout_marginTop="16dp"
-            android:inputType="textUri"
-            android:textColorHint="@color/blue_primary"
-            android:hint="@string/image_url"
-            android:autofillHints="Image url" />
-
-
-        <ImageView
-            android:layout_marginTop="40dp"
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@drawable/feedarticles_logo"
-            android:contentDescription="@string/article_image" />
-
-
-
-
-        <!--checkbox-->
-        <LinearLayout
-            android:id="@+id/radio_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_new_edit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="16dp">
+            android:layout_marginTop="32dp"
+            android:text="@string/nouvel_article"
+            android:textColor="@color/blue_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioGroup
-                android:id="@+id/radio_group"
+        <LinearLayout
+            android:id="@+id/linearLayout_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_title_article"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:autofillHints="titre"
+                android:ems="10"
+                android:hint="@string/titre_label"
+                android:inputType="textPersonName"
+                android:text="@={titleData}"
+                android:textColorHighlight="@color/blue_primary"
+                android:textColorHint="@color/blue_primary" />
+
+            <!-- TO BE CHANGED -->
+            <EditText
+                android:id="@+id/et_description_article"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints="Contenu"
+                android:ems="10"
+                android:gravity="top|start"
+                android:hint="@string/contenu"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:text="@={descriptionData}"
+                android:textColorHint="@color/blue_primary" />
+            <!-- TO BE CHANGED -->
+
+
+            <EditText
+                android:id="@+id/et_image_url"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints="Image url"
+                android:ems="10"
+                android:hint="@string/image_url"
+                android:inputType="textUri"
+                android:text="@={imageUrlData}"
+                android:textColorHint="@color/blue_primary" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:contentDescription="@string/article_image"
+                android:src="@drawable/feedarticles_logo" />
+
+
+            <!--checkbox-->
+            <LinearLayout
+                android:id="@+id/radio_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                >
+                android:gravity="center"
+                android:padding="16dp">
 
-
-
-                <RadioButton
-                    android:id="@+id/radio_sport"
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sport_label" />
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    >
 
-                <RadioButton
-                    android:id="@+id/radio_manga"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/manga_label" />
 
-                <RadioButton
-                    android:id="@+id/radio_divers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/divers_label" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radio_sport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sport_label" />
+
+                    <RadioButton
+                        android:id="@+id/radio_manga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manga_label" />
+
+                    <RadioButton
+                        android:id="@+id/radio_divers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/divers_label" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/enregister" />
+
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/enregister" />
-
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
