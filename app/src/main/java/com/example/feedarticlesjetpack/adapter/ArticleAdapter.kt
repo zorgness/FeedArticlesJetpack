@@ -1,14 +1,10 @@
 package com.example.feedarticlesjetpack.adapter
 
-import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +14,7 @@ import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.squareup.picasso.Picasso
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
-import java.security.AccessController.getContext
-import javax.inject.Inject
+import com.example.feedarticlesjetpack.fragment.MainFragmentDirections
 import javax.inject.Singleton
 
 
@@ -54,15 +49,12 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
         val article: ArticleDto = getItem(position)
 
         with(holder.binding) {
+            val category = getCategoryById(article.categorie)
+            rlArticle.background = category?.color?.let { ContextCompat.getDrawable(rlArticle.context, it) }
+
             tvArticleTitle.text = article.titre
-            tvArticleDate.text = dateFormater(article.createdAt) //toFormatDate
+            tvArticleDate.text = dateFormater(article.createdAt)
             tvArticleDescription.text = article.descriptif
-
-            val color = getCategoryById(article.categorie)?.color
-
-            //println("color: $color")
-
-            rlArticle.background = color?.let { ContextCompat.getDrawable(rlArticle.context, it) }
 
             if (article.urlImage.isEmpty()) {
                 Picasso.get()
@@ -74,6 +66,11 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
                     .load(article.urlImage).error(R.drawable.feedarticles_logo)
                     .resize(300, 300)
                     .into(ivArticleItem)
+            }
+
+            rlArticle.setOnClickListener {view->
+                val navDir = MainFragmentDirections.actionMainFragmentToDetailsArticleFragment(article.id)
+                view.findNavController().navigate(navDir)
             }
         }
     }
