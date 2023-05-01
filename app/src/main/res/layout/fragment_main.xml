@@ -23,19 +23,19 @@
                 android:id="@+id/btn_new_article"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_input_add"
-                android:contentDescription="@string/add_new_articles"
                 android:layout_weight="1"
+                android:contentDescription="@string/add_new_articles"
+                android:src="@android:drawable/ic_input_add"
 
-               />
+                />
 
             <ImageView
                 android:id="@+id/btn_favori_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/btn_star"
-                android:contentDescription="@string/favori"
                 android:layout_weight="1"
+                android:contentDescription="@string/favori"
+                android:src="@android:drawable/btn_star"
 
                 />
 
@@ -43,10 +43,9 @@
                 android:id="@+id/btn_logout"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/logout"
-                android:contentDescription="@string/logout"
                 android:layout_weight="1"
-                />
+                android:contentDescription="@string/logout"
+                android:src="@drawable/logout" />
 
         </LinearLayout>
 
@@ -55,53 +54,51 @@
             android:id="@+id/rv_articles"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/relative_layout_top"
-            android:layout_above="@+id/checkbox_layout"/>
+            android:layout_above="@+id/radio_layout"
+            android:layout_below="@+id/relative_layout_top" />
 
-        <!--checkbox-->
+        <!--Radio-->
         <LinearLayout
-            android:id="@+id/checkbox_layout"
+            android:id="@+id/radio_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_gravity="center">
 
-            <CheckBox
-                android:id="@+id/checkbox1"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/custom_checkbox"
-                android:paddingHorizontal="4dp"
-                android:text="@string/tout_label" />
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                >
 
-            <CheckBox
-                android:id="@+id/checkbox2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:button="@drawable/custom_checkbox"
-                android:paddingHorizontal="4dp"
-                android:text="@string/sport_label" />
+                <RadioButton
+                    android:id="@+id/radio_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tout_label" />
 
-            <CheckBox
-                android:id="@+id/checkbox3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:button="@drawable/custom_checkbox"
-                android:paddingHorizontal="4dp"
-                android:text="@string/manga_label" />
+                <RadioButton
+                    android:id="@+id/radio_sport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sport_label" />
 
-            <CheckBox
-                android:id="@+id/checkbox4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:button="@drawable/custom_checkbox"
-                android:paddingHorizontal="4dp"
-                android:text="@string/divers_label" />
+                <RadioButton
+                    android:id="@+id/radio_manga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manga_label" />
 
+                <RadioButton
+                    android:id="@+id/radio_divers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/divers_label" />
+            </RadioGroup>
         </LinearLayout>
     </RelativeLayout>
 
