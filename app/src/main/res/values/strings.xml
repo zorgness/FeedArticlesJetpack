@@ -27,7 +27,7 @@
     <string name="d_tails_article">Détails Article</string>
     <string name="retour">Retour</string>
     <string name="parameters_problem">probléme de paramétres</string>
-    <string name="unauthorized">non authorisé</string>
+    <string name="unauthorized">probléme d\'autorisation</string>
     <string name="something_went_wrong">something went wrong</string>
     <string name="user_register">utilisateur enregistré</string>
     <string name="user_not_register">utilisateur non enregistré</string>
@@ -49,5 +49,7 @@
     <string name="edit_article_title">Edition Article</string>
     <string name="supprimer">Supprimer</string>
     <string name="mettre_jour">Mettre à jour</string>
+    <string name="server_error">erreur du serveur</string>
+    <string name="empty_fields">tous les champs doivent être remplis</string>
 
 </resources>
