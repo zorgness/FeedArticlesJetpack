@@ -29,7 +29,7 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _articlesLiveData = MutableLiveData<List<ArticleDto>>()
 
-    private val _categoryIdLiveData = MutableLiveData<Int>()
+    private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_ALL_CATEGORY) }
 
     private val _messageLiveData = MutableLiveData<String>()
 
