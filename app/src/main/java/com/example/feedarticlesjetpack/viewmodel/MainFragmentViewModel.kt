@@ -7,6 +7,7 @@ import SHAREDPREF_SESSION_USER_ID
 import USER_TOKEN
 import WITH_FAVORITES
 import android.content.Context
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,8 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _isLogoutLiveData = MutableLiveData<Boolean>()
 
+    private val _progressBarVisibilityLiveData = MutableLiveData<Boolean>()
+
     val articlesLiveData: LiveData<List<ArticleDto>>
         get() = _articlesLiveData
 
@@ -49,8 +52,13 @@ class MainFragmentViewModel @Inject constructor(
     val isLogoutLiveData: LiveData<Boolean>
         get() = _isLogoutLiveData
 
+    val progressBarVisibilityLiveData: LiveData<Boolean>
+        get() = _progressBarVisibilityLiveData
+
     init {
-        getAllArticles()
+        Handler().postDelayed({
+            getAllArticles()
+        }, 1500)
     }
 
     fun getCheckedCategory(checkedId: Int) {
@@ -59,6 +67,7 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     private fun getAllArticles() {
+
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
 
             val token = this.getString(SHAREDPREF_SESSION_TOKEN, null)
@@ -68,6 +77,7 @@ class MainFragmentViewModel @Inject constructor(
                 headers[USER_TOKEN] = token
             }
             viewModelScope.launch {
+                _progressBarVisibilityLiveData.value = true
 
                 val responseCategories: Response<GetArticlesDto>? = withContext(Dispatchers.IO) {
                     apiService.getAllArticles(WITH_FAVORITES, headers)
@@ -89,12 +99,15 @@ class MainFragmentViewModel @Inject constructor(
                             _articlesLiveData.value = body.articles.filter { element ->
                                 element.categorie == categoryIdLiveData.value
                             }
+                        _progressBarVisibilityLiveData.value = false
                     }
 
                     responseCategories.code() == 403 ->
                         _messageLiveData.value = context.getString(R.string.unauthorized)
                 }
+
             }
+
         }
     }
 

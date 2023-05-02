@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ class MainFragment : Fragment() {
 
     private val myViewModel: MainFragmentViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,6 +44,10 @@ class MainFragment : Fragment() {
             }
         }
 
+        myViewModel.progressBarVisibilityLiveData.observe(this) {visibility ->
+            progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
+        }
+
 
     }
 
@@ -50,6 +56,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentMainBinding.inflate(layoutInflater)
+
+        progressBar = binding.pbCyclic
 
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
         articleAdapter = ArticleAdapter()
