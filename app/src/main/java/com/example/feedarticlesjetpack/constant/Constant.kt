@@ -2,6 +2,8 @@ const val SHAREDPREF_NAME = "feedarticle"
 const val SHAREDPREF_SESSION_TOKEN = "session token"
 const val SHAREDPREF_SESSION_USER_ID = "session user id"
 
+const val USER_TOKEN = "token"
+
 const val ID_ALL_CATEGORY = 0
 const val ID_SPORT_CATEGORY = 1
 const val ID_MANGA_CATEGORY = 2

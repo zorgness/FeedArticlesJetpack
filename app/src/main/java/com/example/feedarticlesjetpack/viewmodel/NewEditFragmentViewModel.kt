@@ -4,11 +4,13 @@ import ID_DIVERS_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
+import USER_TOKEN
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.common.responseNewArticleStatus
 import com.example.feedarticlesjetpack.common.responseUpdateArticleStatus
 import com.example.feedarticlesjetpack.dataclass.NewArticleDto
@@ -59,7 +61,7 @@ class NewEditFragmentViewModel @Inject constructor(
             val categoryId = categoryIdLiveData.value
 
             if (token != null) {
-                headers["token"] = token
+                headers[USER_TOKEN] = token
             }
 
             if (title.isNotBlank() && description.isNotBlank() && imageUrl.isNotBlank() && categoryId != null) {
@@ -74,7 +76,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
                         when {
                             responseUpdateArticle == null -> {
-                                _messageLiveData.value = "erreur serveur"
+                                _messageLiveData.value = context.getString(R.string.server_error)
                             }
 
                             responseUpdateArticle.isSuccessful && (body != null) -> {
@@ -83,16 +85,16 @@ class NewEditFragmentViewModel @Inject constructor(
                             }
 
                             responseUpdateArticle.code() == 403 ->
-                                _messageLiveData.value = "probléme d'authorisation"
+                                _messageLiveData.value = context.getString(R.string.unauthorized)
 
                         }
                     }
 
                 } else {
-                    _messageLiveData.value = "probléme d'authentification"
+                    _messageLiveData.value = context.getString(R.string.user_not_authenticated)
                 }
             } else {
-                _messageLiveData.value = "tous les champs doivent être remplis"
+                _messageLiveData.value = context.getString(R.string.empty_fields)
             }
         }
     }
@@ -106,7 +108,7 @@ class NewEditFragmentViewModel @Inject constructor(
             val categoryId = categoryIdLiveData.value
 
             if (token != null) {
-                headers["token"] = token
+                headers[USER_TOKEN] = token
             }
 
             if (title.isNotBlank() && description.isNotBlank() && imageUrl.isNotBlank() && categoryId != null) {
@@ -121,7 +123,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
                         when {
                             responseNewArticle == null -> {
-                                _messageLiveData.value = "erreur serveur"
+                                _messageLiveData.value = context.getString(R.string.server_error)
                             }
 
                             responseNewArticle.isSuccessful && (body != null) -> {
@@ -130,16 +132,16 @@ class NewEditFragmentViewModel @Inject constructor(
                             }
 
                             responseNewArticle.code() == 403 ->
-                                _messageLiveData.value = "probléme d'authorisation"
+                                _messageLiveData.value = context.getString(R.string.unauthorized)
 
                         }
                     }
 
                 } else {
-                    _messageLiveData.value = "probléme d'authentification"
+                    _messageLiveData.value = context.getString(R.string.user_not_authenticated)
                 }
             } else {
-                _messageLiveData.value = "tous les champs doivent être remplis"
+                _messageLiveData.value = context.getString(R.string.empty_fields)
             }
         }
     }

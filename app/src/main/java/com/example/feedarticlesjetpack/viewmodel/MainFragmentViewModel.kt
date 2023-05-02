@@ -4,6 +4,7 @@ import ID_ALL_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
+import USER_TOKEN
 import WITH_FAVORITES
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -64,7 +65,7 @@ class MainFragmentViewModel @Inject constructor(
             val headers = HashMap<String, String>()
 
             if (token != null) {
-                headers["token"] = token
+                headers[USER_TOKEN] = token
             }
             viewModelScope.launch {
 
@@ -81,7 +82,7 @@ class MainFragmentViewModel @Inject constructor(
 
                     responseCategories.isSuccessful && (body != null) -> {
                         _messageLiveData.value =
-                             responseArticlesStatus(body.status, context)
+                            responseArticlesStatus(body.status, context)
                         if (categoryIdLiveData.value == ID_ALL_CATEGORY || categoryIdLiveData.value == null)
                             _articlesLiveData.value = body.articles
                         else
@@ -90,11 +91,9 @@ class MainFragmentViewModel @Inject constructor(
                             }
                     }
 
-
                     responseCategories.code() == 403 ->
                         _messageLiveData.value = context.getString(R.string.unauthorized)
                 }
-
             }
         }
     }
