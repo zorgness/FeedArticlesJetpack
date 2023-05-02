@@ -5,7 +5,6 @@ import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
 import android.content.Context
-import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -68,7 +67,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
                     viewModelScope.launch {
                         val responseNewArticle: Response<StatusDto>? = withContext(Dispatchers.IO) {
-                            apiService.newArticles(NewArticleDto(userId, title, description, imageUrl, categoryId), headers)
+                            apiService.newArticle(NewArticleDto(userId, title, description, imageUrl, categoryId), headers)
                         }
 
                         val body = responseNewArticle?.body()

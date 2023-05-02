@@ -1,7 +1,6 @@
 package com.example.feedarticlesjetpack.network
 
 import com.example.feedarticlesjetpack.dataclass.*
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -27,7 +26,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @PUT(ApiRoutes.ARTICLES)
-    suspend fun newArticles(
+    suspend fun newArticle(
         @Body newArticleDto: NewArticleDto,
         @HeaderMap headers: Map<String, String>,
     ): Response<StatusDto>?
@@ -35,7 +34,22 @@ interface ApiService {
     @GET(ApiRoutes.ARTICLES)
     suspend fun getArticleById(
         @HeaderMap headers: Map<String, String>,
-        @Query("id") id: Int,
+        @Query("id") articleId: Int,
         @Query("with_fav") withFav: Int?
     ): Response<GetArticleDto>?
+
+    @POST(ApiRoutes.ARTICLES)
+    suspend fun updateArticle(
+        @Query("id") articleId: Int,
+        @HeaderMap headers: Map<String, String>,
+        @Body updateArticleDto: UpdateArticleDto
+
+
+    ): Response<StatusDto>?
+
+    @DELETE(ApiRoutes.ARTICLES)
+    suspend fun deleteArticle(
+        @Query("id") articleId: Int,
+        @HeaderMap headers: Map<String, String>
+    ): Response<StatusDto>?
 }
