@@ -30,13 +30,15 @@ class SplashFragmentViewModel @Inject constructor(
 
     private fun getDestination() {
 
-        val sessionToken = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)
-            .getString(SHAREDPREF_SESSION_TOKEN, null)
-        _destinationLiveData.value = if (sessionToken != null) {
-            SplashFragmentDirections.actionSplashFragmentToMainFragment()
-        } else {
-            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+        context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE).apply {
+            getString(SHAREDPREF_SESSION_TOKEN, null)
+            _destinationLiveData.value = if (this != null) {
+                SplashFragmentDirections.actionSplashFragmentToMainFragment()
+            } else {
+                SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+            }
         }
+
     }
 
 }
