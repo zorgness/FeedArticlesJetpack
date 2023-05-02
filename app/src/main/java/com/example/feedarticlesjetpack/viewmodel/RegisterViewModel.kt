@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.dataclass.RegisterDto
 import com.example.feedarticlesjetpack.dataclass.SessionDto
 import com.example.feedarticlesjetpack.network.ApiService
@@ -51,8 +52,7 @@ class RegisterViewModel @Inject constructor(
 
                     when {
                         responseRegister == null -> {
-
-                            _messageLiveData.value = "erreur du serveur"
+                            _messageLiveData.value = context.getString(R.string.server_error)
                         }
 
                         responseRegister.isSuccessful && (body != null) -> {
@@ -74,15 +74,15 @@ class RegisterViewModel @Inject constructor(
 
 
                         responseRegister.code() == 403 ->
-                            _messageLiveData.value = "probléme d'authorisation"
+                            _messageLiveData.value = context.getString(R.string.unauthorized)
                     }
 
                 }
             } else
-                _messageLiveData.value = "mot de passe et confirmation sont différents"
+                _messageLiveData.value = context.getString(R.string.password_problem)
 
         } else
-            _messageLiveData.value = "les champs ne peuvent-être vide"
+            _messageLiveData.value = context.getString(R.string.empty_fields)
 
     }
 
