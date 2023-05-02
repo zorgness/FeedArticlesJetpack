@@ -66,7 +66,7 @@ class MainFragmentViewModel @Inject constructor(
         getAllArticles()
     }
 
-    private fun getAllArticles() {
+    fun getAllArticles() {
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
 
@@ -90,7 +90,7 @@ class MainFragmentViewModel @Inject constructor(
                         _messageLiveData.value = context.getString(R.string.server_error)
                     }
 
-                    responseCategories.isSuccessful && (body != null) -> {
+                    responseCategories.isSuccessful &&  (body != null) -> {
                         _messageLiveData.value =
                             responseArticlesStatus(body.status, context)
                         if (categoryIdLiveData.value == ID_ALL_CATEGORY || categoryIdLiveData.value == null)

@@ -21,13 +21,15 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
 import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
+import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
 
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
 
     private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
-    private val sharedViewModel: DetailsArticleFragmentViewModel by viewModels()
+    private val detailsViewModel: DetailsArticleFragmentViewModel by viewModels()
+    private val mainViewModel: MainFragmentViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +39,7 @@ class NewEditArticleFragment : Fragment() {
 
         myViewModel.statusLiveData.observe(this) { status ->
             if (status == STATUS_NEW_EDIT_ARTICLE_SUCCESS) {
+                mainViewModel.getAllArticles()
                 findNavController().navigate(R.id.mainFragment)
             }
         }
@@ -73,8 +76,8 @@ class NewEditArticleFragment : Fragment() {
             binding.tvNewEdit.text = getString(R.string.edit_article_title)
             binding.btnSaveArticle.visibility = View.GONE
 
-            sharedViewModel.getArticleById(args.articleId)
-            sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
+            detailsViewModel.getArticleById(args.articleId)
+            detailsViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
                 binding.etImageUrl.setText(article.urlImage)
