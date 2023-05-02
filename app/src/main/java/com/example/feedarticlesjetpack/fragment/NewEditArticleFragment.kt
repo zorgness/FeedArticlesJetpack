@@ -15,16 +15,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
+import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
+import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
 
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
 
     private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
+    private val sharedViewModel: DetailsArticleFragmentViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,6 +41,7 @@ class NewEditArticleFragment : Fragment() {
                 findNavController().navigate(R.id.mainFragment)
             }
         }
+
     }
 
     override fun onCreateView(
@@ -47,9 +51,57 @@ class NewEditArticleFragment : Fragment() {
         val binding: FragmentNewEditArticleBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_edit_article, container, false)
 
-        if(args.articleId > 0) {
-            binding.tvNewEdit.text = "Edition Article"
+        fun getCategoryIdRadioButton(checkedId: Int) =
+            when (checkedId) {
+                binding.radioSport.id -> ID_SPORT_CATEGORY
+                binding.radioManga.id -> ID_MANGA_CATEGORY
+                binding.radioDivers.id -> ID_DIVERS_CATEGORY
+                else -> ID_DIVERS_CATEGORY
+            }
+
+        if (args.articleId > 0) {
+            binding.tvNewEdit.text = getString(R.string.edit_article_title)
+            binding.btnSaveArticle.visibility = View.GONE
+
+            sharedViewModel.getArticleById(args.articleId)
+            sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
+                binding.etTitleArticle.setText(article.titre)
+                binding.etDescriptionArticle.setText(article.descriptif)
+                binding.etImageUrl.setText(article.urlImage)
+
+                //FIND ANOTHER SOLUTION
+                if (binding.etImageUrl.text.isNotEmpty()) {
+                    Picasso.get()
+                        .load(binding.etImageUrl.text.toString())
+                        .resize(300, 300)
+                        .error(R.drawable.feedarticles_logo)
+                        .into(binding.ivArticleImage)
+
+                } else if (binding.etImageUrl.text.isEmpty()) {
+                    Picasso.get()
+                        .load(R.drawable.feedarticles_logo)
+                        .resize(300, 300)
+                        .into(binding.ivArticleImage)
+                }
+                //FIND ANOTHER SOLUTION
+            }
+        } else {
+            binding.btnGroupUpdateDelete.visibility = View.GONE
+
+            binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
+                myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
+            }
+
+            binding.btnSaveArticle.setOnClickListener {
+                myViewModel.newArticle(
+                    binding.titleData ?: "",
+                    binding.descriptionData ?: "",
+                    binding.imageUrlData ?: ""
+                )
+            }
+
         }
+
 
         //FIND ANOTHER SOLUTION WITH DATA BINDING
         binding.etImageUrl.onFocusChangeListener = View.OnFocusChangeListener { _, isFocus ->
@@ -70,25 +122,7 @@ class NewEditArticleFragment : Fragment() {
         }
         //FIND ANOTHER SOLUTION WITH DATA BINDING
 
-        fun getCategoryIdRadioButton(checkedId: Int) =
-            when (checkedId) {
-                binding.radioSport.id -> ID_SPORT_CATEGORY
-                binding.radioManga.id -> ID_MANGA_CATEGORY
-                binding.radioDivers.id -> ID_DIVERS_CATEGORY
-                else -> ID_DIVERS_CATEGORY
-            }
 
-        binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
-            myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
-        }
-
-        binding.btnSaveArticle.setOnClickListener {
-           myViewModel.newArticle(
-               binding.titleData ?: "",
-               binding.descriptionData ?: "",
-               binding.imageUrlData ?: ""
-           )
-        }
 
         return binding.root
     }

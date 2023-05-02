@@ -43,5 +43,8 @@
     <string name="new_article_failure">pas de création</string>
     <string name="created_at">Créé le %1$s</string>
     <string name="categorie">categorie: %1$s</string>
+    <string name="edit_article_title">Edition Article</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="mettre_jour">Mettre à jour</string>
 
 </resources>
