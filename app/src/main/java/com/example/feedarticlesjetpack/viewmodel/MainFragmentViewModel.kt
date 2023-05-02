@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.example.feedarticlesjetpack.dataclass.GetArticlesDto
 import com.example.feedarticlesjetpack.network.ApiService
@@ -51,7 +52,6 @@ class MainFragmentViewModel @Inject constructor(
         getAllArticles()
     }
 
-
     fun getCheckedCategory(checkedId: Int) {
         _categoryIdLiveData.value = checkedId
         getAllArticles()
@@ -76,7 +76,7 @@ class MainFragmentViewModel @Inject constructor(
 
                 when {
                     responseCategories == null -> {
-                        _messageLiveData.value = "erreur du serveur"
+                        _messageLiveData.value = context.getString(R.string.server_error)
                     }
 
                     responseCategories.isSuccessful && (body != null) -> {
@@ -92,7 +92,7 @@ class MainFragmentViewModel @Inject constructor(
 
 
                     responseCategories.code() == 403 ->
-                        _messageLiveData.value = "erreur d'authorisation"
+                        _messageLiveData.value = context.getString(R.string.unauthorized)
                 }
 
             }
@@ -103,8 +103,7 @@ class MainFragmentViewModel @Inject constructor(
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             edit().remove(SHAREDPREF_SESSION_TOKEN).remove(SHAREDPREF_SESSION_USER_ID).apply()
             _isLogoutLiveData.value = true
-            _messageLiveData.value = "bye bye"
-
+            _messageLiveData.value = context.getString(R.string.bye_bye)
         }
     }
 }

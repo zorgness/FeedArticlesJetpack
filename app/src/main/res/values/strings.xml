@@ -52,5 +52,6 @@
     <string name="server_error">erreur du serveur</string>
     <string name="empty_fields">tous les champs doivent être remplis</string>
     <string name="password_problem">mot de passe et confirmation sont différents</string>
+    <string name="bye_bye">bye bye</string>
 
 </resources>
