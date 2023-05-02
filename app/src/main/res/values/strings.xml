@@ -40,7 +40,10 @@
     <string name="articles_error_connection">erreur de connection</string>
     <string name="welcome">bienvenue</string>
     <string name="new_article_success">article créé</string>
+    <string name="update_article_success">article modifié</string>
     <string name="new_article_failure">pas de création</string>
+    <string name="update_article_failure">pas de modification</string>
+    <string name="update_article_id_problem">les ids sont différents</string>
     <string name="created_at">Créé le %1$s</string>
     <string name="categorie">categorie: %1$s</string>
     <string name="edit_article_title">Edition Article</string>

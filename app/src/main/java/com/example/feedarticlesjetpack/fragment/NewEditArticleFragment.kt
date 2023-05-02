@@ -3,7 +3,7 @@ package com.example.feedarticlesjetpack.fragment
 import ID_DIVERS_CATEGORY
 import ID_MANGA_CATEGORY
 import ID_SPORT_CATEGORY
-import STATUS_NEW_ARTICLE_SUCCESS
+import STATUS_NEW_EDIT_ARTICLE_SUCCESS
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
-import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +36,7 @@ class NewEditArticleFragment : Fragment() {
 
 
         myViewModel.statusLiveData.observe(this) { status ->
-            if (status == STATUS_NEW_ARTICLE_SUCCESS) {
+            if (status == STATUS_NEW_EDIT_ARTICLE_SUCCESS) {
                 findNavController().navigate(R.id.mainFragment)
             }
         }
@@ -82,9 +81,6 @@ class NewEditArticleFragment : Fragment() {
                 binding.etImageUrl.setText(article.urlImage)
                 radioBtnCheckedByCategoryId(article.categorie)
 
-                //GET THE RADIO BUTTON CHECKED
-
-
                 //FIND ANOTHER SOLUTION
                 if (binding.etImageUrl.text.isNotEmpty()) {
                     Picasso.get()
@@ -104,6 +100,7 @@ class NewEditArticleFragment : Fragment() {
 
                 binding.btnEditArticle.setOnClickListener {
                     myViewModel.updateArticle(
+                        article.id,
                         binding.titleData ?: "",
                         binding.descriptionData ?: "",
                         binding.imageUrlData ?: ""
