@@ -20,12 +20,14 @@ import com.example.feedarticlesjetpack.databinding.FragmentMainBinding
 import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
+import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
 
     private val myViewModel: MainFragmentViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +51,11 @@ class MainFragment : Fragment() {
             progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
         }
 
-
+        sharedViewModel.refreshListLiveData.observe(this) {refreshList ->
+            if(refreshList) {
+                myViewModel.getAllArticles()
+            }
+        }
     }
 
     override fun onCreateView(

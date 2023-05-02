@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
 import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
 import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
+import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
@@ -29,7 +31,7 @@ class NewEditArticleFragment : Fragment() {
     private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
     private val detailsViewModel: DetailsArticleFragmentViewModel by viewModels()
-    private val mainViewModel: MainFragmentViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,10 +41,17 @@ class NewEditArticleFragment : Fragment() {
 
         myViewModel.statusLiveData.observe(this) { status ->
             if (status == STATUS_NEW_EDIT_ARTICLE_SUCCESS) {
-                mainViewModel.getAllArticles()
+                sharedViewModel.askForRefreshArticlesList()
                 findNavController().navigate(R.id.mainFragment)
             }
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                sharedViewModel.askForRefreshArticlesList()
+                findNavController().navigate(R.id.mainFragment)
+            }
+        })
     }
 
     override fun onCreateView(
@@ -77,6 +86,7 @@ class NewEditArticleFragment : Fragment() {
             binding.btnSaveArticle.visibility = View.GONE
 
             detailsViewModel.getArticleById(args.articleId)
+
             detailsViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
