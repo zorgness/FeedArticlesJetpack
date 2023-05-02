@@ -27,14 +27,12 @@ class LoginFragment : Fragment() {
             activity?.myToast(message)
         }
 
-
         myViewModel.statusLiveData.observe(this) { status ->
             if (status == STATUS_USER_SUCCESS) {
                 val navDir = LoginFragmentDirections.actionLoginFragmentToMainFragment()
                 findNavController().navigate(navDir)
             }
         }
-
     }
 
     override fun onCreateView(
@@ -53,6 +51,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             myViewModel.login(binding.loginData ?: "", binding.passwordData ?: "")
         }
+
         return binding.root
     }
 }

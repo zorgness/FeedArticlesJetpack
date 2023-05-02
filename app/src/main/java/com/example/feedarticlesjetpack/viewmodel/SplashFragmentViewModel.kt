@@ -12,6 +12,7 @@ import com.example.feedarticlesjetpack.fragment.SplashFragmentDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+
 @HiltViewModel
 class SplashFragmentViewModel @Inject constructor(
     val context: Context
@@ -30,15 +31,13 @@ class SplashFragmentViewModel @Inject constructor(
 
     private fun getDestination() {
 
-        context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE).apply {
-            getString(SHAREDPREF_SESSION_TOKEN, null)
-            _destinationLiveData.value = if (this != null) {
-                SplashFragmentDirections.actionSplashFragmentToMainFragment()
-            } else {
-                SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-            }
+        val sessionToken = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)
+            .getString(SHAREDPREF_SESSION_TOKEN, null)
+        _destinationLiveData.value = if (sessionToken != null) {
+            SplashFragmentDirections.actionSplashFragmentToMainFragment()
+        } else {
+            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         }
-
     }
 
 }
