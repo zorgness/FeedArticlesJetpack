@@ -43,8 +43,8 @@ class DetailsArticleFragment : Fragment() {
         myViewModel.articleLiveData.observe(viewLifecycleOwner) {article->
             binding.tvArticleTitle.text = article.titre
             binding.tvArticleDescription.text = article.descriptif
-            binding.tvArticleDate.text = dateFormater(article.createdAt)
-            binding.tvArticleCategory.text = getCategoryById(article.categorie)?.name
+            binding.tvArticleDate.text = getString(R.string.created_at).format(dateFormater(article.createdAt))
+            binding.tvArticleCategory.text = getString(R.string.categorie).format(getCategoryById(article.categorie)?.name)
 
             if (article.urlImage.isEmpty()) {
                 Picasso.get()

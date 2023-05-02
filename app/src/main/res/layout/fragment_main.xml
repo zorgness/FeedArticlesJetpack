@@ -79,7 +79,8 @@
                     android:id="@+id/radio_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tout_label" />
+                    android:text="@string/tout_label"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/radio_sport"

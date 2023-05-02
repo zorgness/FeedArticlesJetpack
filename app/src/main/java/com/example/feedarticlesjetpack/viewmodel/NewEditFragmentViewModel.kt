@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ID_DIVERS_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
@@ -26,7 +27,7 @@ class NewEditFragmentViewModel @Inject constructor(
     private val context: Context
 ) : ViewModel() {
 
-    private val _categoryIdLiveData = MutableLiveData<Int>()
+    private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_DIVERS_CATEGORY) }
 
     private val categoryIdLiveData: LiveData<Int>
         get() = _categoryIdLiveData

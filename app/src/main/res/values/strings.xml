@@ -41,5 +41,7 @@
     <string name="welcome">bienvenue</string>
     <string name="new_article_success">article créé</string>
     <string name="new_article_failure">pas de création</string>
+    <string name="created_at">Créé le %1$s</string>
+    <string name="categorie">categorie: %1$s</string>
 
 </resources>
