@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -34,13 +35,11 @@ class NewEditArticleFragment : Fragment() {
             activity?.myToast(message)
         }
 
-
         myViewModel.statusLiveData.observe(this) { status ->
             if (status == STATUS_NEW_EDIT_ARTICLE_SUCCESS) {
                 findNavController().navigate(R.id.mainFragment)
             }
         }
-
     }
 
     override fun onCreateView(
@@ -60,10 +59,10 @@ class NewEditArticleFragment : Fragment() {
 
         fun radioBtnCheckedByCategoryId(categoryId: Int) =
             when (categoryId) {
-                ID_SPORT_CATEGORY -> binding.radioSport.isChecked
-                ID_MANGA_CATEGORY -> binding.radioManga.isChecked
-                ID_DIVERS_CATEGORY -> binding.radioDivers.isChecked
-                else -> binding.radioDivers.isChecked
+                ID_SPORT_CATEGORY -> binding.radioSport.id
+                ID_MANGA_CATEGORY -> binding.radioManga.id
+                ID_DIVERS_CATEGORY -> binding.radioDivers.id
+                else -> binding.radioDivers.id
             }
 
         binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
@@ -79,7 +78,7 @@ class NewEditArticleFragment : Fragment() {
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
                 binding.etImageUrl.setText(article.urlImage)
-                radioBtnCheckedByCategoryId(article.categorie)
+                binding.radioGroup.check(radioBtnCheckedByCategoryId(article.categorie))
 
                 //FIND ANOTHER SOLUTION
                 if (binding.etImageUrl.text.isNotEmpty()) {
@@ -110,7 +109,6 @@ class NewEditArticleFragment : Fragment() {
         } else {
             binding.btnGroupUpdateDelete.visibility = View.GONE
 
-
             binding.btnSaveArticle.setOnClickListener {
                 myViewModel.newArticle(
                     binding.titleData ?: "",
@@ -118,7 +116,6 @@ class NewEditArticleFragment : Fragment() {
                     binding.imageUrlData ?: ""
                 )
             }
-
         }
 
 
