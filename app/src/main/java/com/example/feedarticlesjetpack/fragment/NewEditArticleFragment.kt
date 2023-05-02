@@ -105,6 +105,10 @@ class NewEditArticleFragment : Fragment() {
                         binding.imageUrlData ?: ""
                     )
                 }
+
+                binding.btnDeleteArticle.setOnClickListener {
+
+                }
             }
         } else {
             binding.btnGroupUpdateDelete.visibility = View.GONE

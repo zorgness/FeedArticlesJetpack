@@ -52,21 +52,21 @@ fun responseArticlesStatus(status: String?, context: Context): String =
     }
 
 fun responseNewArticleStatus(status: Int?, context: Context): String =
-    when(status) {
+    when (status) {
         STATUS_NEW_EDIT_ARTICLE_SUCCESS -> context.getString(R.string.new_article_success)
         STATUS_NEW_EDIT_ARTICLE_FAILURE -> context.getString(R.string.new_article_failure)
-        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM-> context.getString(R.string.parameters_problem)
-        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED-> context.getString(R.string.unauthorized)
+        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
         else -> context.getString(R.string.something_went_wrong)
     }
 
 fun responseUpdateArticleStatus(status: Int?, context: Context): String =
-    when(status) {
+    when (status) {
         STATUS_NEW_EDIT_ARTICLE_SUCCESS -> context.getString(R.string.update_article_success)
         STATUS_NEW_EDIT_ARTICLE_FAILURE -> context.getString(R.string.update_article_failure)
-        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM-> context.getString(R.string.parameters_problem)
-        STATUS_NEW_EDIT_ARTICLE_ID_PROBLEM-> context.getString(R.string.update_article_id_problem)
-        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED-> context.getString(R.string.unauthorized)
+        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_NEW_EDIT_ARTICLE_ID_PROBLEM -> context.getString(R.string.update_article_id_problem)
+        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
         else -> context.getString(R.string.something_went_wrong)
     }
 
@@ -86,10 +86,7 @@ val categories = listOf(
     CategoryData(ID_DIVERS_CATEGORY, DIVERS_CATEGORY, R.color.divers)
 )
 
-//TO IMPROVE
-fun getCategoryById(categoryId: Int): CategoryData? {
-    val category = categories.find {
-        it.id == categoryId
+fun getCategoryById(categoryId: Int): CategoryData? =
+    categories.find { element ->
+        element.id == categoryId
     }
-    return  category
-}

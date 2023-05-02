@@ -48,6 +48,10 @@ class NewEditFragmentViewModel @Inject constructor(
     }
 
 
+    fun deleteArticle(articleId: Int) {
+
+    }
+
     fun updateArticle(articleId: Int, title: String, description: String, imageUrl: String) {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
