@@ -56,7 +56,12 @@
         android:id="@+id/newEditArticleFragment"
         android:name="com.example.feedarticlesjetpack.fragment.NewEditArticleFragment"
         android:label="fragment_new_edit_article"
-        tools:layout="@layout/fragment_new_edit_article" />
+        tools:layout="@layout/fragment_new_edit_article" >
+        <argument
+            android:name="articleId"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
     <fragment
         android:id="@+id/detailsArticleFragment"
         android:name="com.example.feedarticlesjetpack.fragment.DetailsArticleFragment"

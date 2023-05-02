@@ -80,7 +80,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
             rlArticle.setOnClickListener {view->
                 with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
                     navDir = if(article.idU == getInt(SHAREDPREF_SESSION_USER_ID, 0)) {
-                        MainFragmentDirections.actionMainFragmentToNewEditArticleFragment()
+                        MainFragmentDirections.actionMainFragmentToNewEditArticleFragment(article.id)
                     } else {
                         MainFragmentDirections.actionMainFragmentToDetailsArticleFragment(article.id)
 

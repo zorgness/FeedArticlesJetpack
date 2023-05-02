@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
@@ -22,7 +23,7 @@ import com.example.feedarticlesjetpack.extensions.myToast
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
 
-
+    private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,9 @@ class NewEditArticleFragment : Fragment() {
         val binding: FragmentNewEditArticleBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_edit_article, container, false)
 
+        if(args.articleId > 0) {
+            binding.tvNewEdit.text = "Edition Article"
+        }
 
         //FIND ANOTHER SOLUTION WITH DATA BINDING
         binding.etImageUrl.onFocusChangeListener = View.OnFocusChangeListener { _, isFocus ->
