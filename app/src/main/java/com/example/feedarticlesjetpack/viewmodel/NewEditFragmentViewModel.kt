@@ -46,6 +46,11 @@ class NewEditFragmentViewModel @Inject constructor(
         _categoryIdLiveData.value = checkedId
     }
 
+
+    fun updateArticle(title: String, description: String, imageUrl: String) {
+        println("updateArticle $title $description $imageUrl ${categoryIdLiveData.value}")
+    }
+
     fun newArticle(title: String, description: String, imageUrl: String) {
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {

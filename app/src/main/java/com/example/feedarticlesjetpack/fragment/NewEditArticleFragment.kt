@@ -59,6 +59,18 @@ class NewEditArticleFragment : Fragment() {
                 else -> ID_DIVERS_CATEGORY
             }
 
+        fun radioBtnCheckedByCategoryId(categoryId: Int) =
+            when (categoryId) {
+                ID_SPORT_CATEGORY -> binding.radioSport.isChecked
+                ID_MANGA_CATEGORY -> binding.radioManga.isChecked
+                ID_DIVERS_CATEGORY -> binding.radioDivers.isChecked
+                else -> binding.radioDivers.isChecked
+            }
+
+        binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
+            myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
+        }
+
         if (args.articleId > 0) {
             binding.tvNewEdit.text = getString(R.string.edit_article_title)
             binding.btnSaveArticle.visibility = View.GONE
@@ -68,6 +80,10 @@ class NewEditArticleFragment : Fragment() {
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
                 binding.etImageUrl.setText(article.urlImage)
+                radioBtnCheckedByCategoryId(article.categorie)
+
+                //GET THE RADIO BUTTON CHECKED
+
 
                 //FIND ANOTHER SOLUTION
                 if (binding.etImageUrl.text.isNotEmpty()) {
@@ -84,13 +100,19 @@ class NewEditArticleFragment : Fragment() {
                         .into(binding.ivArticleImage)
                 }
                 //FIND ANOTHER SOLUTION
+
+
+                binding.btnEditArticle.setOnClickListener {
+                    myViewModel.updateArticle(
+                        binding.titleData ?: "",
+                        binding.descriptionData ?: "",
+                        binding.imageUrlData ?: ""
+                    )
+                }
             }
         } else {
             binding.btnGroupUpdateDelete.visibility = View.GONE
 
-            binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
-                myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
-            }
 
             binding.btnSaveArticle.setOnClickListener {
                 myViewModel.newArticle(
@@ -121,7 +143,6 @@ class NewEditArticleFragment : Fragment() {
             }
         }
         //FIND ANOTHER SOLUTION WITH DATA BINDING
-
 
 
         return binding.root

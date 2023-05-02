@@ -65,6 +65,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
             tvArticleDate.text = dateFormater(article.createdAt)
             tvArticleDescription.text = article.descriptif
 
+            //TO BE IMPROVED
             if (article.urlImage.isEmpty()) {
                 Picasso.get()
                     .load(R.drawable.feedarticles_logo)
@@ -76,6 +77,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
                     .resize(300, 300)
                     .into(ivArticleItem)
             }
+            //TO BE IMPROVED
 
             rlArticle.setOnClickListener {view->
                 with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
