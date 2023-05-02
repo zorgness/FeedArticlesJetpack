@@ -106,42 +106,50 @@
             android:contentDescription="@string/article_image"
             android:src="@drawable/feedarticles_logo"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_article_title" />
 
         <!-- Scrollable text view -->
-        <ScrollView
-            android:id="@+id/scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_article_image">
-
-            <TextView
-                android:id="@+id/tv_article_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue_primary"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt, erat nec efficitur sagittis, lorem ipsum feugiat magna, id bibendum augue elit eu nisl. Aenean maximus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus." />
-        </ScrollView>
 
 
         <!--TO MODIFY? KEEP BUTTON DOWN IF TEXT IS SHORTER-->
-        <Button
-            android:id="@+id/btn_return"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:text="@string/retour"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollview" />
+            android:gravity="bottom"
+            android:layout_marginBottom="16dp">
 
+            <ScrollView
+                android:id="@+id/scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fillViewport="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_article_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_primary"
+                    android:paddingBottom="80dp"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt, erat nec efficitur sagittis, lorem ipsum feugiat magna, id bibendum augue elit eu nisl. Aenean maximus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus., justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus, justo ut pharetra sollicitudin, ipsum mi hendrerit mi, ut ultrices libero sapien nec tortor. Proin lacinia, nisi eget sagittis laoreet, purus augue dapibus tellus, sit amet faucibus nisi quam ut sapien. In malesuada eget magna ac rhoncus" />
+
+
+            </ScrollView>
+
+
+            <Button
+                android:id="@+id/btn_return"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/retour" />
+        </RelativeLayout>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,7 +58,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
 
             if (article.urlImage.isEmpty()) {
                 Picasso.get()
-                    .load(android.R.color.transparent)
+                    .load(R.drawable.feedarticles_logo)
                     .resize(300, 300)
                     .into(ivArticleItem)
             } else {
