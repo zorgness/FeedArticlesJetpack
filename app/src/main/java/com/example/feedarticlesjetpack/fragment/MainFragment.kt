@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,9 +16,8 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.adapter.ArticleAdapter
 import com.example.feedarticlesjetpack.databinding.FragmentMainBinding
 import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
-import com.example.feedarticlesjetpack.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import myToast
+import com.example.feedarticlesjetpack.extensions.myToast
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {

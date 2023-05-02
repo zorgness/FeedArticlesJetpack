@@ -14,7 +14,7 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentLoginBinding
 import com.example.feedarticlesjetpack.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import myToast
+import com.example.feedarticlesjetpack.extensions.myToast
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {

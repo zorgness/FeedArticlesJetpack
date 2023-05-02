@@ -17,7 +17,7 @@ import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import myToast
+import com.example.feedarticlesjetpack.extensions.myToast
 
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {

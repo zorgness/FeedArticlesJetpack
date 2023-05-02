@@ -1,7 +1,6 @@
 package com.example.feedarticlesjetpack.fragment
 
 import STATUS_USER_SUCCESS
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.FragmentRegisterBinding
 import com.example.feedarticlesjetpack.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import myToast
-import javax.inject.Inject
+import com.example.feedarticlesjetpack.extensions.myToast
 
 @AndroidEntryPoint
 class RegisterFragment: Fragment() {

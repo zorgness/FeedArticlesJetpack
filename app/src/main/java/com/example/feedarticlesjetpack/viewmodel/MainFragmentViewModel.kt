@@ -80,8 +80,8 @@ class MainFragmentViewModel @Inject constructor(
                     }
 
                     responseCategories.isSuccessful && (body != null) -> {
-                        /* _messageLiveData.value =
-                             responseArticlesStatus(body.status, context)*/
+                        _messageLiveData.value =
+                             responseArticlesStatus(body.status, context)
                         if (categoryIdLiveData.value == ID_ALL_CATEGORY || categoryIdLiveData.value == null)
                             _articlesLiveData.value = body.articles
                         else

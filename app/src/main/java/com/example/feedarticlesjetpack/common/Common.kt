@@ -44,7 +44,7 @@ fun responseLoginStatus(status: Int?, context: Context): String =
 
 fun responseArticlesStatus(status: String?, context: Context): String =
     when (status) {
-        STATUS_ARTICLES_SUCCESS -> context.getString(R.string.welcome)
+        STATUS_ARTICLES_SUCCESS -> ""
         STATUS_ARTICLES_UNAUTH -> context.getString(R.string.articles_unauthorized)
         STATUS_ARTICLES_PARAM_PROBLEM -> context.getString(R.string.articles_param_problem)
         STATUS_ARTICLES_ERROR_CON -> context.getString(R.string.articles_error_connection)

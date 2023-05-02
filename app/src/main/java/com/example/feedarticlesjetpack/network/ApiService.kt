@@ -13,13 +13,29 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST(ApiRoutes.USER)
-    suspend fun login(@Field("login") login: String, @Field("mdp") mdp: String): Response<SessionDto>?
+    suspend fun login(
+        @Field("login") login: String,
+        @Field("mdp") mdp: String
+    ): Response<SessionDto>?
 
 
     @GET(ApiRoutes.ARTICLES)
-    suspend fun getAllArticles(@Query("with_fav") withFav: Int?, @HeaderMap headers: Map<String, String>,): Response<GetArticlesDto>?
+    suspend fun getAllArticles(
+        @Query("with_fav") withFav: Int?,
+        @HeaderMap headers: Map<String, String>,
+    ): Response<GetArticlesDto>?
 
     @Headers("Content-Type: application/json")
     @PUT(ApiRoutes.ARTICLES)
-    suspend fun newArticles(@Body newArticleDto: NewArticleDto, @HeaderMap headers: Map<String, String>,): Response<StatusDto>?
+    suspend fun newArticles(
+        @Body newArticleDto: NewArticleDto,
+        @HeaderMap headers: Map<String, String>,
+    ): Response<StatusDto>?
+
+    @GET(ApiRoutes.ARTICLES)
+    suspend fun getArticleById(
+        @HeaderMap headers: Map<String, String>,
+        @Query("id") id: Int,
+        @Query("with_fav") withFav: Int?
+    ): Response<GetArticleDto>?
 }
