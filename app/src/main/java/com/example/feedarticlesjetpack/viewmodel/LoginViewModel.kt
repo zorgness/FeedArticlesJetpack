@@ -3,6 +3,7 @@ package com.example.feedarticlesjetpack.viewmodel
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
+import STATUS_USER_FAILURE
 import STATUS_USER_SUCCESS
 import android.content.Context
 import androidx.lifecycle.LiveData

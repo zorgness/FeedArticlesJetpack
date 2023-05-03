@@ -9,5 +9,5 @@ data class SessionDto(
     @Json(name = "id")
     val id: Int,
     @Json(name = "token")
-    val token: String
+    val token: String?
 )
