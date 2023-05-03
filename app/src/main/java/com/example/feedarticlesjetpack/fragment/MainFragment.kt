@@ -43,16 +43,23 @@ class MainFragment : Fragment() {
 
         myViewModel.isLogoutLiveData.observe(this) { isLogout ->
             if (isLogout) {
-                findNavController().navigate(R.id.loginFragment)
+                findNavController().navigate(
+                    R.id.loginFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(
+                        R.id.nav_graph, true
+                    ).build()
+                )
+
             }
         }
 
-        myViewModel.progressBarVisibilityLiveData.observe(this) {visibility ->
-            progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
+        myViewModel.progressBarVisibilityLiveData.observe(this) { visibility ->
+            progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
         }
 
-        sharedViewModel.refreshListLiveData.observe(this) {refreshList ->
-            if(refreshList) {
+        sharedViewModel.refreshListLiveData.observe(this) { refreshList ->
+            if (refreshList) {
                 myViewModel.getAllArticles()
             }
         }
