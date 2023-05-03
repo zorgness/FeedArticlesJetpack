@@ -13,7 +13,6 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
 import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
-import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
@@ -22,16 +21,15 @@ import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class DetailsArticleFragment : Fragment() {
 
-    private val myViewModel: DetailsArticleFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
     private val args:DetailsArticleFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        myViewModel.getArticleById(args.articleId)
+        sharedViewModel.getArticleById(args.articleId)
 
-        myViewModel.messageLiveData.observe(this) {message->
+        sharedViewModel.messageLiveData.observe(this) {message->
             activity?.myToast(message)
         }
 
@@ -55,7 +53,7 @@ class DetailsArticleFragment : Fragment() {
             findNavController().navigate(R.id.mainFragment)
         }
 
-        myViewModel.articleLiveData.observe(viewLifecycleOwner) {article->
+        sharedViewModel.articleLiveData.observe(viewLifecycleOwner) {article->
             binding.tvArticleTitle.text = article.titre
             binding.tvArticleDescription.text = article.descriptif
             binding.tvArticleDate.text = getString(R.string.created_at).format(dateFormater(article.createdAt))

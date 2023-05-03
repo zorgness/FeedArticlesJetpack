@@ -21,6 +21,9 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
+/*
+
+//TO DELETE
 @HiltViewModel
 class DetailsArticleFragmentViewModel @Inject constructor(
     private val apiService: ApiService,
@@ -72,4 +75,4 @@ class DetailsArticleFragmentViewModel @Inject constructor(
 
         }
     }
-}
+}*/

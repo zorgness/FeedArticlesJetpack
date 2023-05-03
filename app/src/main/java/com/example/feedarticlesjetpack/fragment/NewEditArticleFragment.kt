@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,8 +20,6 @@ import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
-import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
-import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
 import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
@@ -30,7 +27,6 @@ class NewEditArticleFragment : Fragment() {
 
     private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
-    private val detailsViewModel: DetailsArticleFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,9 +81,9 @@ class NewEditArticleFragment : Fragment() {
             binding.tvNewEdit.text = getString(R.string.edit_article_title)
             binding.btnSaveArticle.visibility = View.GONE
 
-            detailsViewModel.getArticleById(args.articleId)
+           sharedViewModel.getArticleById(args.articleId)
 
-            detailsViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
+            sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
                 binding.etImageUrl.setText(article.urlImage)
