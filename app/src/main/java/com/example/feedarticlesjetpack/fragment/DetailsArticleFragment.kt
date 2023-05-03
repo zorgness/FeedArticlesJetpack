@@ -37,6 +37,10 @@ class DetailsArticleFragment : Fragment() {
             activity?.myToast(message)
         }
 
+        myViewModel.messageLiveData.observe(this) { message ->
+            activity?.myToast(message)
+        }
+
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 sharedViewModel.askForRefreshArticlesList()
@@ -79,6 +83,7 @@ class DetailsArticleFragment : Fragment() {
 
 
             binding.ivBtnStar.setOnClickListener {
+                println("favorite")
                 myViewModel.addToFavorite(article.id)
             }
         }

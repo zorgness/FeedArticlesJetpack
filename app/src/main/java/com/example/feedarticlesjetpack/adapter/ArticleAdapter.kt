@@ -65,6 +65,8 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
             tvArticleDate.text = dateFormater(article.createdAt)
             tvArticleDescription.text = article.descriptif
 
+            ivFavorite.visibility = if(article.isFav == 1) View.VISIBLE else View.GONE
+
             //TO BE IMPROVED
             if (article.urlImage.isEmpty()) {
                 Picasso.get()

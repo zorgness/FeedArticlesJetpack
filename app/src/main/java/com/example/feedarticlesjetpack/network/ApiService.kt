@@ -6,7 +6,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @Headers("Content-Type: application/json")
     @PUT(ApiRoutes.USER)
     suspend fun register(@Body registerDto: RegisterDto): Response<SessionDto>?
 
@@ -24,7 +23,7 @@ interface ApiService {
         @HeaderMap headers: Map<String, String>,
     ): Response<GetArticlesDto>?
 
-    @Headers("Content-Type: application/json")
+
     @PUT(ApiRoutes.ARTICLES)
     suspend fun newArticle(
         @Body newArticleDto: NewArticleDto,
@@ -53,7 +52,7 @@ interface ApiService {
         @HeaderMap headers: Map<String, String>
     ): Response<StatusDto>?
 
-    @POST(ApiRoutes.ARTICLES)
+    @PUT(ApiRoutes.ARTICLES)
     suspend fun addArticleToFavorite(
         @Query("id") articleId: Int,
         @HeaderMap headers: Map<String, String>
