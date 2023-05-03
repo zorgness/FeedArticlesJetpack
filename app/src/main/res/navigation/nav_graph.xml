@@ -53,7 +53,8 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_newEditArticleFragment"
-            app:destination="@id/newEditArticleFragment" />
+            app:destination="@id/newEditArticleFragment"
+            app:popUpTo="@id/mainFragment" />
         <action
             android:id="@+id/action_mainFragment_to_detailsArticleFragment"
             app:destination="@id/detailsArticleFragment" />

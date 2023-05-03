@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
@@ -39,7 +40,10 @@ class NewEditArticleFragment : Fragment() {
         myViewModel.statusLiveData.observe(this) { status ->
             if (status == STATUS_MUTATION_ARTICLE_SUCCESS) {
                 sharedViewModel.askForRefreshArticlesList()
-                findNavController().navigate(R.id.mainFragment)
+                findNavController().navigate(R.id.mainFragment ,null,
+                    NavOptions.Builder().setPopUpTo(
+                        R.id.mainFragment, true
+                    ).build())
             }
         }
 
