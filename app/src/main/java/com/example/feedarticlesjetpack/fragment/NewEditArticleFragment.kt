@@ -3,7 +3,8 @@ package com.example.feedarticlesjetpack.fragment
 import ID_DIVERS_CATEGORY
 import ID_MANGA_CATEGORY
 import ID_SPORT_CATEGORY
-import STATUS_NEW_EDIT_ARTICLE_SUCCESS
+import STATUS_MUTATION_ARTICLE_SUCCESS
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,7 @@ class NewEditArticleFragment : Fragment() {
         }
 
         myViewModel.statusLiveData.observe(this) { status ->
-            if (status == STATUS_NEW_EDIT_ARTICLE_SUCCESS) {
+            if (status == STATUS_MUTATION_ARTICLE_SUCCESS) {
                 sharedViewModel.askForRefreshArticlesList()
                 findNavController().navigate(R.id.mainFragment)
             }
@@ -115,9 +116,22 @@ class NewEditArticleFragment : Fragment() {
                     )
                 }
 
+                //TO IMPROVE
                 binding.btnDeleteArticle.setOnClickListener {
-
+                    val builder = AlertDialog.Builder(context)
+                    builder.setMessage(R.string.are_you_sure_to_delete)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            myViewModel.deleteArticle(article.id)
+                        }
+                        .setNegativeButton(R.string.no) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    val alert = builder.create()
+                    alert.show()
                 }
+
+
             }
         } else {
             binding.btnGroupUpdateDelete.visibility = View.GONE

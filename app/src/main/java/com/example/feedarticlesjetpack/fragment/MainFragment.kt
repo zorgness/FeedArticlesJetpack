@@ -25,7 +25,6 @@ import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-
     private val myViewModel: MainFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
@@ -50,7 +49,6 @@ class MainFragment : Fragment() {
                         R.id.nav_graph, true
                     ).build()
                 )
-
             }
         }
 
@@ -87,7 +85,7 @@ class MainFragment : Fragment() {
             findNavController().navigate(navDir)
         }
 
-        fun getCategoryIdRadioButton(checkedId: Int) =
+        fun getCategoryIdByRadioButton(checkedId: Int) =
             when (checkedId) {
                 binding.radioAll.id -> ID_ALL_CATEGORY
                 binding.radioSport.id -> ID_SPORT_CATEGORY
@@ -97,7 +95,7 @@ class MainFragment : Fragment() {
             }
 
         binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
-            myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
+            myViewModel.getCheckedCategory(getCategoryIdByRadioButton(checkedId))
         }
 
 

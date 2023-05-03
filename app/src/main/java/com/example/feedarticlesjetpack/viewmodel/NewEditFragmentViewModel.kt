@@ -1,16 +1,20 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ERROR_403
 import ID_DIVERS_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
 import USER_TOKEN
+import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.feedarticlesjetpack.MainActivity
 import com.example.feedarticlesjetpack.R
+import com.example.feedarticlesjetpack.common.responseDeleteArticleStatus
 import com.example.feedarticlesjetpack.common.responseNewArticleStatus
 import com.example.feedarticlesjetpack.common.responseUpdateArticleStatus
 import com.example.feedarticlesjetpack.dataclass.NewArticleDto
@@ -51,6 +55,38 @@ class NewEditFragmentViewModel @Inject constructor(
 
 
     fun deleteArticle(articleId: Int) {
+        with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
+            val token = getString(SHAREDPREF_SESSION_TOKEN, null)
+            val headers = HashMap<String, String>()
+
+            if (token != null) {
+                headers[USER_TOKEN] = token
+            }
+
+            viewModelScope.launch {
+                val responseDeleteArticle: Response<StatusDto>? = withContext(Dispatchers.IO) {
+                    apiService.deleteArticle(articleId, headers)
+                }
+
+                val body = responseDeleteArticle?.body()
+
+                when {
+                    responseDeleteArticle == null -> {
+                        _messageLiveData.value = context.getString(R.string.server_error)
+                    }
+
+                    responseDeleteArticle.isSuccessful && (body != null) -> {
+                        _messageLiveData.value = responseDeleteArticleStatus(body.status, context)
+                        _statusLiveData.value = body.status
+                    }
+
+                    responseDeleteArticle.code() == ERROR_403 ->
+                        _messageLiveData.value = context.getString(R.string.unauthorized)
+
+                }
+            }
+
+        }
 
     }
 
@@ -68,9 +104,20 @@ class NewEditFragmentViewModel @Inject constructor(
                 if (token != null) {
 
                     viewModelScope.launch {
-                        val responseUpdateArticle: Response<StatusDto>? = withContext(Dispatchers.IO) {
-                            apiService.updateArticle(articleId, headers, UpdateArticleDto(articleId, title, description, imageUrl, categoryId))
-                        }
+                        val responseUpdateArticle: Response<StatusDto>? =
+                            withContext(Dispatchers.IO) {
+                                apiService.updateArticle(
+                                    articleId,
+                                    headers,
+                                    UpdateArticleDto(
+                                        articleId,
+                                        title,
+                                        description,
+                                        imageUrl,
+                                        categoryId
+                                    )
+                                )
+                            }
 
                         val body = responseUpdateArticle?.body()
 
@@ -80,11 +127,12 @@ class NewEditFragmentViewModel @Inject constructor(
                             }
 
                             responseUpdateArticle.isSuccessful && (body != null) -> {
-                                 _messageLiveData.value = responseUpdateArticleStatus(body.status, context)
+                                _messageLiveData.value =
+                                    responseUpdateArticleStatus(body.status, context)
                                 _statusLiveData.value = body.status
                             }
 
-                            responseUpdateArticle.code() == 403 ->
+                            responseUpdateArticle.code() == ERROR_403 ->
                                 _messageLiveData.value = context.getString(R.string.unauthorized)
 
                         }
@@ -116,7 +164,15 @@ class NewEditFragmentViewModel @Inject constructor(
 
                     viewModelScope.launch {
                         val responseNewArticle: Response<StatusDto>? = withContext(Dispatchers.IO) {
-                            apiService.newArticle(NewArticleDto(userId, title, description, imageUrl, categoryId), headers)
+                            apiService.newArticle(
+                                NewArticleDto(
+                                    userId,
+                                    title,
+                                    description,
+                                    imageUrl,
+                                    categoryId
+                                ), headers
+                            )
                         }
 
                         val body = responseNewArticle?.body()
@@ -127,11 +183,12 @@ class NewEditFragmentViewModel @Inject constructor(
                             }
 
                             responseNewArticle.isSuccessful && (body != null) -> {
-                                _messageLiveData.value = responseNewArticleStatus(body.status, context)
+                                _messageLiveData.value =
+                                    responseNewArticleStatus(body.status, context)
                                 _statusLiveData.value = body.status
                             }
 
-                            responseNewArticle.code() == 403 ->
+                            responseNewArticle.code() == ERROR_403 ->
                                 _messageLiveData.value = context.getString(R.string.unauthorized)
 
                         }

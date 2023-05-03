@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ERROR_403
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
@@ -73,7 +74,7 @@ class RegisterViewModel @Inject constructor(
                         }
 
 
-                        responseRegister.code() == 403 ->
+                        responseRegister.code() == ERROR_403 ->
                             _messageLiveData.value = context.getString(R.string.unauthorized)
                     }
 

@@ -53,5 +53,10 @@
     <string name="empty_fields">tous les champs doivent être remplis</string>
     <string name="password_problem">mot de passe et confirmation sont différents</string>
     <string name="bye_bye">bye bye</string>
+    <string name="article_deleted">article supprimé</string>
+    <string name="article_not_deleted">pas de suppression</string>
+    <string name="are_you_sure_to_delete">Voulez-vous supprimer cet article ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
 </resources>

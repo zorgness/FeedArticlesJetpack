@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ERROR_403
 import ID_ALL_CATEGORY
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
@@ -102,7 +103,7 @@ class MainFragmentViewModel @Inject constructor(
                         _progressBarVisibilityLiveData.value = false
                     }
 
-                    responseCategories.code() == 403 ->
+                    responseCategories.code() == ERROR_403 ->
                         _messageLiveData.value = context.getString(R.string.unauthorized)
                 }
 

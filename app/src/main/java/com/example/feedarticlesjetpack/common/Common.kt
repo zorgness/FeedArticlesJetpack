@@ -10,11 +10,11 @@ import STATUS_ARTICLES_ERROR_CON
 import STATUS_ARTICLES_PARAM_PROBLEM
 import STATUS_ARTICLES_SUCCESS
 import STATUS_ARTICLES_UNAUTH
-import STATUS_NEW_EDIT_ARTICLE_FAILURE
-import STATUS_NEW_EDIT_ARTICLE_ID_PROBLEM
-import STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM
-import STATUS_NEW_EDIT_ARTICLE_SUCCESS
-import STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED
+import STATUS_MUTATION_ARTICLE_FAILURE
+import STATUS_MUTATION_ARTICLE_ID_PROBLEM
+import STATUS_MUTATION_ARTICLE_PARAM_PROBLEM
+import STATUS_MUTATION_ARTICLE_SUCCESS
+import STATUS_MUTATION_ARTICLE_UNAUTHORIZED
 import STATUS_USER_ALREADY_LOGGED
 import STATUS_USER_FAILURE
 import STATUS_USER_PARAMETERS_PROBLEM
@@ -53,20 +53,29 @@ fun responseArticlesStatus(status: String?, context: Context): String =
 
 fun responseNewArticleStatus(status: Int?, context: Context): String =
     when (status) {
-        STATUS_NEW_EDIT_ARTICLE_SUCCESS -> context.getString(R.string.new_article_success)
-        STATUS_NEW_EDIT_ARTICLE_FAILURE -> context.getString(R.string.new_article_failure)
-        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
-        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
+        STATUS_MUTATION_ARTICLE_SUCCESS -> context.getString(R.string.new_article_success)
+        STATUS_MUTATION_ARTICLE_FAILURE -> context.getString(R.string.new_article_failure)
+        STATUS_MUTATION_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_MUTATION_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
         else -> context.getString(R.string.something_went_wrong)
     }
 
 fun responseUpdateArticleStatus(status: Int?, context: Context): String =
     when (status) {
-        STATUS_NEW_EDIT_ARTICLE_SUCCESS -> context.getString(R.string.update_article_success)
-        STATUS_NEW_EDIT_ARTICLE_FAILURE -> context.getString(R.string.update_article_failure)
-        STATUS_NEW_EDIT_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
-        STATUS_NEW_EDIT_ARTICLE_ID_PROBLEM -> context.getString(R.string.update_article_id_problem)
-        STATUS_NEW_EDIT_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
+        STATUS_MUTATION_ARTICLE_SUCCESS -> context.getString(R.string.update_article_success)
+        STATUS_MUTATION_ARTICLE_FAILURE -> context.getString(R.string.update_article_failure)
+        STATUS_MUTATION_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_MUTATION_ARTICLE_ID_PROBLEM -> context.getString(R.string.update_article_id_problem)
+        STATUS_MUTATION_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
+        else -> context.getString(R.string.something_went_wrong)
+    }
+
+fun responseDeleteArticleStatus(status: Int?, context: Context): String =
+    when (status) {
+        STATUS_MUTATION_ARTICLE_SUCCESS -> context.getString(R.string.article_deleted)
+        STATUS_MUTATION_ARTICLE_FAILURE -> context.getString(R.string.article_not_deleted)
+        STATUS_MUTATION_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_MUTATION_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
         else -> context.getString(R.string.something_went_wrong)
     }
 

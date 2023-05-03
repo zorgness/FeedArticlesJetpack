@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import ERROR_403
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import USER_TOKEN
@@ -25,13 +26,13 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val apiService: ApiService,
     private val context: Context
-): ViewModel() {
+) : ViewModel() {
 
     private val _messageLiveData = MutableLiveData<String>()
 
     private val _articleLiveData = MutableLiveData<ArticleDto>()
 
-    private val _refreshListLiveData = MutableLiveData<Boolean>().apply { postValue(false)}
+    private val _refreshListLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
 
     val articleLiveData: LiveData<ArticleDto>
         get() = _articleLiveData
@@ -49,7 +50,7 @@ class SharedViewModel @Inject constructor(
 
 
     fun getArticleById(id: Int) {
-        with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE )) {
+        with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
 
             val headers = HashMap<String, String>()
@@ -60,13 +61,13 @@ class SharedViewModel @Inject constructor(
 
             viewModelScope.launch {
                 val responseArticle: Response<GetArticleDto>? = withContext(Dispatchers.IO) {
-                    apiService.getArticleById(headers, id, WITH_FAVORITES,)
+                    apiService.getArticleById(headers, id, WITH_FAVORITES)
                 }
 
                 val body = responseArticle?.body()
 
                 when {
-                    responseArticle == null-> {
+                    responseArticle == null -> {
                         _messageLiveData.value = context.getString(R.string.server_error)
                     }
 
@@ -75,7 +76,7 @@ class SharedViewModel @Inject constructor(
                         _articleLiveData.value = body.article
                     }
 
-                    responseArticle.code() == 403 -> {
+                    responseArticle.code() == ERROR_403 -> {
                         _messageLiveData.value = context.getString(R.string.unauthorized)
                     }
                 }
