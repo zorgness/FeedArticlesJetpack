@@ -79,6 +79,15 @@ fun responseDeleteArticleStatus(status: Int?, context: Context): String =
         else -> context.getString(R.string.something_went_wrong)
     }
 
+fun responseFavoriteStateArticleStatus(status: Int?, context: Context): String =
+    when (status) {
+        STATUS_MUTATION_ARTICLE_SUCCESS -> context.getString(R.string.status_favorite_changed)
+        STATUS_MUTATION_ARTICLE_FAILURE -> context.getString(R.string.status_favorite_not_changed)
+        STATUS_MUTATION_ARTICLE_PARAM_PROBLEM -> context.getString(R.string.parameters_problem)
+        STATUS_MUTATION_ARTICLE_UNAUTHORIZED -> context.getString(R.string.unauthorized)
+        else -> context.getString(R.string.something_went_wrong)
+    }
+
 
 //TO IMPROVE
 fun dateFormater(dateStr: String): String {

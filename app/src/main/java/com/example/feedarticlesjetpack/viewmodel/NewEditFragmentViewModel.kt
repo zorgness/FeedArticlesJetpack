@@ -155,9 +155,8 @@ class NewEditFragmentViewModel @Inject constructor(
             val headers = HashMap<String, String>()
             val categoryId = categoryIdLiveData.value
 
-            if (token != null) {
+            if (token != null)
                 headers[USER_TOKEN] = token
-            }
 
             if (title.isNotBlank() && description.isNotBlank() && imageUrl.isNotBlank() && categoryId != null) {
                 if (userId != 0 && token != null) {

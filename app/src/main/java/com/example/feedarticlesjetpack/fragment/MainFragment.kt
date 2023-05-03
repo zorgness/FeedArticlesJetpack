@@ -89,15 +89,6 @@ class MainFragment : Fragment() {
             findNavController().navigate(navDir)
         }
 
-        fun getCategoryIdByRadioButton(checkedId: Int) =
-            when (checkedId) {
-                binding.radioAll.id -> ID_ALL_CATEGORY
-                binding.radioSport.id -> ID_SPORT_CATEGORY
-                binding.radioManga.id -> ID_MANGA_CATEGORY
-                binding.radioDivers.id -> ID_DIVERS_CATEGORY
-                else -> ID_ALL_CATEGORY
-            }
-
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             myViewModel.getCheckedCategory(getCategoryIdByRadioButton(checkedId))
         }
@@ -105,6 +96,15 @@ class MainFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun getCategoryIdByRadioButton(checkedBtnId: Int) =
+        when (checkedBtnId) {
+            R.id.radio_all -> ID_ALL_CATEGORY
+            R.id.radio_sport-> ID_SPORT_CATEGORY
+            R.id.radio_manga-> ID_MANGA_CATEGORY
+            R.id.radio_divers -> ID_DIVERS_CATEGORY
+            else -> ID_ALL_CATEGORY
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()

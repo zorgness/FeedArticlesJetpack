@@ -16,6 +16,7 @@ import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
+import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
 import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class DetailsArticleFragment : Fragment() {
     private var _binding: FragmentDetailsArticleBinding? = null
     private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by viewModels()
+    private val myViewModel: DetailsArticleFragmentViewModel by viewModels()
     private val args: DetailsArticleFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +76,11 @@ class DetailsArticleFragment : Fragment() {
                     .resize(300, 300)
                     .into(binding.ivArticleImage)
             }
+
+
+            binding.ivBtnStar.setOnClickListener {
+                myViewModel.addToFavorite(article.id)
+            }
         }
 
 
@@ -85,4 +92,13 @@ class DetailsArticleFragment : Fragment() {
         _binding = null
     }
 
+    fun getStarIcon(isFav : Boolean): Int =
+        if(isFav) {
+            1
+        } else {
+            2
+        }
+
 }
+
+

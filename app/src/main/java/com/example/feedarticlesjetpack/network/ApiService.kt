@@ -52,4 +52,11 @@ interface ApiService {
         @Query("id") articleId: Int,
         @HeaderMap headers: Map<String, String>
     ): Response<StatusDto>?
+
+    @POST(ApiRoutes.ARTICLES)
+    suspend fun addArticleToFavorite(
+        @Query("id") articleId: Int,
+        @HeaderMap headers: Map<String, String>
+    ): Response<StatusDto>?
+
 }

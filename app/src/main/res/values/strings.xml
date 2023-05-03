@@ -54,6 +54,8 @@
     <string name="password_problem">mot de passe et confirmation sont différents</string>
     <string name="bye_bye">bye bye</string>
     <string name="article_deleted">article supprimé</string>
+    <string name="status_favorite_changed">statut de favori changé</string>
+    <string name="status_favorite_not_changed">statut de favori inchangé</string>
     <string name="article_not_deleted">pas de suppression</string>
     <string name="are_you_sure_to_delete">Voulez-vous supprimer cet article ?</string>
     <string name="yes">Oui</string>
