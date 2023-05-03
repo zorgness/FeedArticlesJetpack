@@ -19,6 +19,8 @@ import com.example.feedarticlesjetpack.extensions.myToast
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
     private val myViewModel: LoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,7 @@ class LoginFragment : Fragment() {
         }
 
         myViewModel.statusLiveData.observe(this) { status ->
-            if (status == STATUS_USER_SUCCESS) {
+            (status == STATUS_USER_SUCCESS).run {
                 val navDir = LoginFragmentDirections.actionLoginFragmentToMainFragment()
                 findNavController().navigate(navDir)
             }
@@ -40,8 +42,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding: FragmentLoginBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.tvLoginToRegister.setOnClickListener {
             val navDir = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
@@ -54,4 +56,10 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
