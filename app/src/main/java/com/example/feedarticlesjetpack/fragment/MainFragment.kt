@@ -25,6 +25,8 @@ import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
     private val myViewModel: MainFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
@@ -67,8 +69,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentMainBinding.inflate(layoutInflater)
-
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         progressBar = binding.pbCyclic
 
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
@@ -100,6 +101,11 @@ class MainFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
