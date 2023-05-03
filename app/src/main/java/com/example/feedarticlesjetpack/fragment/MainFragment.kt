@@ -42,8 +42,14 @@ class MainFragment : Fragment() {
             activity?.myToast(message)
         }
 
+        myViewModel.progressBarVisibilityLiveData.observe(this) { visibility ->
+            progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+        }
+
+
+        // TODO explication
         myViewModel.isLogoutLiveData.observe(this) { isLogout ->
-            if (isLogout) {
+            (isLogout).run {
                 findNavController().navigate(
                     R.id.loginFragment,
                     null,
@@ -54,12 +60,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        myViewModel.progressBarVisibilityLiveData.observe(this) { visibility ->
-            progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
-        }
-
+        // TODO explication
         sharedViewModel.refreshListLiveData.observe(this) { refreshList ->
-            if (refreshList) {
+            (refreshList).run {
                 myViewModel.getAllArticles()
             }
         }
@@ -95,7 +98,7 @@ class MainFragment : Fragment() {
                 else -> ID_ALL_CATEGORY
             }
 
-        binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             myViewModel.getCheckedCategory(getCategoryIdByRadioButton(checkedId))
         }
 

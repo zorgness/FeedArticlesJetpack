@@ -17,6 +17,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
+import com.example.feedarticlesjetpack.databinding.FragmentLoginBinding
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
@@ -27,6 +28,8 @@ import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class NewEditArticleFragment : Fragment() {
 
+    private var _binding: FragmentNewEditArticleBinding? = null
+    private val binding get() = _binding!!
     private val args: NewEditArticleFragmentArgs by navArgs()
     private val myViewModel: NewEditFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
@@ -38,12 +41,14 @@ class NewEditArticleFragment : Fragment() {
         }
 
         myViewModel.statusLiveData.observe(this) { status ->
-            if (status == STATUS_MUTATION_ARTICLE_SUCCESS) {
+            (status == STATUS_MUTATION_ARTICLE_SUCCESS).run {
                 sharedViewModel.askForRefreshArticlesList()
-                findNavController().navigate(R.id.mainFragment ,null,
+                findNavController().navigate(
+                    R.id.mainFragment, null,
                     NavOptions.Builder().setPopUpTo(
                         R.id.mainFragment, true
-                    ).build())
+                    ).build()
+                )
             }
         }
 
@@ -59,34 +64,22 @@ class NewEditArticleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: FragmentNewEditArticleBinding =
+        _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_edit_article, container, false)
-
-        fun getCategoryIdRadioButton(checkedId: Int) =
-            when (checkedId) {
-                binding.radioSport.id -> ID_SPORT_CATEGORY
-                binding.radioManga.id -> ID_MANGA_CATEGORY
-                binding.radioDivers.id -> ID_DIVERS_CATEGORY
-                else -> ID_DIVERS_CATEGORY
-            }
-
-        fun radioBtnCheckedByCategoryId(categoryId: Int) =
-            when (categoryId) {
-                ID_SPORT_CATEGORY -> binding.radioSport.id
-                ID_MANGA_CATEGORY -> binding.radioManga.id
-                ID_DIVERS_CATEGORY -> binding.radioDivers.id
-                else -> binding.radioDivers.id
-            }
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
             myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
         }
 
+
+        ///TO IMPROVE A LOT
+
         if (args.articleId > 0) {
             binding.tvNewEdit.text = getString(R.string.edit_article_title)
             binding.btnSaveArticle.visibility = View.GONE
 
-           sharedViewModel.getArticleById(args.articleId)
+            sharedViewModel.getArticleById(args.articleId)
 
             sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
                 binding.etTitleArticle.setText(article.titre)
@@ -172,5 +165,26 @@ class NewEditArticleFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun getCategoryIdRadioButton(checkedId: Int) =
+        when (checkedId) {
+            R.id.radio_sport -> ID_SPORT_CATEGORY
+            R.id.radio_manga -> ID_MANGA_CATEGORY
+            R.id.radio_divers -> ID_DIVERS_CATEGORY
+            else -> ID_DIVERS_CATEGORY
+        }
+
+    private fun radioBtnCheckedByCategoryId(categoryId: Int) =
+        when (categoryId) {
+            ID_SPORT_CATEGORY -> R.id.radio_sport
+            ID_MANGA_CATEGORY -> R.id.radio_manga
+            ID_DIVERS_CATEGORY -> R.id.radio_divers
+            else -> R.id.radio_divers
+        }
 
 }
