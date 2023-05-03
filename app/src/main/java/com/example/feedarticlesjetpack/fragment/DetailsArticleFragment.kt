@@ -21,15 +21,17 @@ import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class DetailsArticleFragment : Fragment() {
 
+    private var _binding: FragmentDetailsArticleBinding? = null
+    private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by viewModels()
-    private val args:DetailsArticleFragmentArgs by navArgs()
+    private val args: DetailsArticleFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         sharedViewModel.getArticleById(args.articleId)
 
-        sharedViewModel.messageLiveData.observe(this) {message->
+        sharedViewModel.messageLiveData.observe(this) { message ->
             activity?.myToast(message)
         }
 
@@ -46,18 +48,20 @@ class DetailsArticleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentDetailsArticleBinding.inflate(layoutInflater)
+        _binding = FragmentDetailsArticleBinding.inflate(inflater, container, false)
 
         binding.btnReturn.setOnClickListener {
             sharedViewModel.askForRefreshArticlesList()
             findNavController().navigate(R.id.mainFragment)
         }
 
-        sharedViewModel.articleLiveData.observe(viewLifecycleOwner) {article->
+        sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
             binding.tvArticleTitle.text = article.titre
             binding.tvArticleDescription.text = article.descriptif
-            binding.tvArticleDate.text = getString(R.string.created_at).format(dateFormater(article.createdAt))
-            binding.tvArticleCategory.text = getString(R.string.categorie).format(getCategoryById(article.categorie)?.name)
+            binding.tvArticleDate.text =
+                getString(R.string.created_at).format(dateFormater(article.createdAt))
+            binding.tvArticleCategory.text =
+                getString(R.string.categorie).format(getCategoryById(article.categorie)?.name)
 
             if (article.urlImage.isEmpty()) {
                 Picasso.get()
@@ -74,6 +78,11 @@ class DetailsArticleFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
