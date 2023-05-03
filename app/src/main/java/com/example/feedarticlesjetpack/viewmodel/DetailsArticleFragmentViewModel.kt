@@ -35,27 +35,9 @@ class DetailsArticleFragmentViewModel @Inject constructor(
 ) : ViewModel() {
     private val _messageLiveData = MutableLiveData<String>()
 
-/*    private val _starIconLiveData = MutableLiveData<Drawable>().apply {
-        postValue(
-            AppCompatResources.getDrawable(
-                context,
-                android.R.drawable.btn_star
-            )
-        )
-    }*/
-
-    private val _starIconLiveData = MutableLiveData<Drawable>()
-
-    private val _isFavoriteLiveData = MutableLiveData<Boolean>()
-
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
 
-    val starIconLiveData: LiveData<Drawable>
-        get() = _starIconLiveData
-
-    val isFavoriteLiveData: LiveData<Boolean>
-        get() = _isFavoriteLiveData
 
     fun addToFavorite(articleId: Int) {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {

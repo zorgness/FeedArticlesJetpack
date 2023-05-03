@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -81,9 +82,8 @@ class DetailsArticleFragment : Fragment() {
                     .into(binding.ivArticleImage)
             }
 
-
+            binding.ivBtnStar.setImageResource(getStarIcon(article.isFav))
             binding.ivBtnStar.setOnClickListener {
-                println("favorite")
                 myViewModel.addToFavorite(article.id)
             }
         }
@@ -97,11 +97,11 @@ class DetailsArticleFragment : Fragment() {
         _binding = null
     }
 
-    fun getStarIcon(isFav : Boolean): Int =
-        if(isFav) {
-            1
+    private fun getStarIcon(isFav : Int): Int =
+        if(isFav == 1) {
+            android.R.drawable.btn_star_big_on
         } else {
-            2
+            android.R.drawable.btn_star_big_off
         }
 
 }

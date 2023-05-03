@@ -83,7 +83,7 @@
                 android:layout_alignTop="@+id/tv_article_description"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/favori"
-                android:src="@android:drawable/btn_star"/>
+                android:src="@android:drawable/btn_star_big_on"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
