@@ -7,3 +7,6 @@ fun Context.myToast(message: String) {
     if(message.isNotBlank())
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
+
+val Int.bool:Boolean get() = this == 1
+

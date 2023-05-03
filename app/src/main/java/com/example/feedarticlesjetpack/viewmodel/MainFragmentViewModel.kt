@@ -35,6 +35,8 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_ALL_CATEGORY) }
 
+    private val _favLiveData = MutableLiveData<Int>()
+
     private val _messageLiveData = MutableLiveData<String>()
 
     private val _isLogoutLiveData = MutableLiveData<Boolean>()
@@ -46,6 +48,9 @@ class MainFragmentViewModel @Inject constructor(
 
     private val categoryIdLiveData: LiveData<Int>
         get() = _categoryIdLiveData
+
+    val favLiveData: LiveData<Int>
+        get() = _favLiveData
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
@@ -65,6 +70,10 @@ class MainFragmentViewModel @Inject constructor(
     fun getCheckedCategory(checkedId: Int) {
         _categoryIdLiveData.value = checkedId
         getAllArticles()
+    }
+
+    fun setFavoriteFilter() {
+
     }
 
     fun getAllArticles() {

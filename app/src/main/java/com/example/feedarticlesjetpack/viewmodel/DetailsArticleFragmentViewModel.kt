@@ -20,6 +20,7 @@ import com.example.feedarticlesjetpack.common.responseFavoriteStateArticleStatus
 import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.example.feedarticlesjetpack.dataclass.GetArticleDto
 import com.example.feedarticlesjetpack.dataclass.StatusDto
+import com.example.feedarticlesjetpack.extensions.bool
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,11 +36,20 @@ class DetailsArticleFragmentViewModel @Inject constructor(
 ) : ViewModel() {
     private val _messageLiveData = MutableLiveData<String>()
 
+    private val _isArticleFavoriteLiveData = MutableLiveData<Boolean>()
+
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
 
+    val isArticleFavoriteLiveData: LiveData<Boolean>
+        get() = _isArticleFavoriteLiveData
 
-    fun addToFavorite(articleId: Int) {
+    fun getArticleFavoriteStatus(isFav: Boolean) {
+        _isArticleFavoriteLiveData.value = isFav
+    }
+
+    fun setFavoriteStatus(articleId: Int) {
+
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
             val header = HashMap<String, String>()
@@ -47,25 +57,24 @@ class DetailsArticleFragmentViewModel @Inject constructor(
             if(token != null)
                 header[USER_TOKEN] = token
 
-
             viewModelScope.launch {
-                val responseAddToFavorite: Response<StatusDto>? = withContext(Dispatchers.IO) {
+                val responseSetFavorite: Response<StatusDto>? = withContext(Dispatchers.IO) {
                     apiService.addArticleToFavorite(articleId, header)
                 }
 
-                val body = responseAddToFavorite?.body()
+                val body = responseSetFavorite?.body()
 
                 when {
-                    responseAddToFavorite == null -> {
+                    responseSetFavorite == null -> {
                         _messageLiveData.value = context.getString(R.string.server_error)
                     }
 
-                    responseAddToFavorite.isSuccessful && (body != null) -> {
+                    responseSetFavorite.isSuccessful && (body != null) -> {
                         _messageLiveData.value = responseFavoriteStateArticleStatus(body.status, context)
-
+                        _isArticleFavoriteLiveData.value = !_isArticleFavoriteLiveData.value!!
                     }
 
-                    responseAddToFavorite.code() == ERROR_403 -> {
+                    responseSetFavorite.code() == ERROR_403 -> {
                         _messageLiveData.value = context.getString(R.string.unauthorized)
                     }
                 }

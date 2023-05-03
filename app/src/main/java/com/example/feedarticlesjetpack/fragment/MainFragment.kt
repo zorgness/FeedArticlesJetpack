@@ -93,6 +93,10 @@ class MainFragment : Fragment() {
             myViewModel.getCheckedCategory(getCategoryIdByRadioButton(checkedId))
         }
 
+        binding.btnFavoriteFilter.setOnClickListener {
+            myViewModel.setFavoriteFilter()
+        }
+
 
         return binding.root
     }

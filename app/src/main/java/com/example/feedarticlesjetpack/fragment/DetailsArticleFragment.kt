@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +15,7 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
 import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
+import com.example.feedarticlesjetpack.extensions.bool
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
@@ -28,6 +30,7 @@ class DetailsArticleFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private val myViewModel: DetailsArticleFragmentViewModel by viewModels()
     private val args: DetailsArticleFragmentArgs by navArgs()
+    private lateinit var ivIconStar: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,10 @@ class DetailsArticleFragment : Fragment() {
 
         myViewModel.messageLiveData.observe(this) { message ->
             activity?.myToast(message)
+        }
+
+        myViewModel.isArticleFavoriteLiveData.observe(this) { isFavorite ->
+            ivIconStar.setImageResource(getStarIcon(isFavorite))
         }
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -56,6 +63,8 @@ class DetailsArticleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsArticleBinding.inflate(inflater, container, false)
+
+        ivIconStar = binding.ivBtnStar
 
         binding.btnReturn.setOnClickListener {
             sharedViewModel.askForRefreshArticlesList()
@@ -82,9 +91,12 @@ class DetailsArticleFragment : Fragment() {
                     .into(binding.ivArticleImage)
             }
 
-            binding.ivBtnStar.setImageResource(getStarIcon(article.isFav))
+            myViewModel.getArticleFavoriteStatus(article.isFav.bool)
+
+            binding.ivBtnStar.setImageResource(getStarIcon(article.isFav.bool))
+
             binding.ivBtnStar.setOnClickListener {
-                myViewModel.addToFavorite(article.id)
+                myViewModel.setFavoriteStatus(article.id)
             }
         }
 
@@ -97,8 +109,8 @@ class DetailsArticleFragment : Fragment() {
         _binding = null
     }
 
-    private fun getStarIcon(isFav : Int): Int =
-        if(isFav == 1) {
+    private fun getStarIcon(isFav : Boolean): Int =
+        if(isFav) {
             android.R.drawable.btn_star_big_on
         } else {
             android.R.drawable.btn_star_big_off
