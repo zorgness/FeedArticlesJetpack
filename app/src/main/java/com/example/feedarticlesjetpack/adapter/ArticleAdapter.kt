@@ -59,8 +59,8 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
         val article: ArticleDto = getItem(position)
 
         with(holder.binding) {
-            val category = getCategoryById(article.categorie)
-            rlArticle.background = category?.color?.let { ContextCompat.getDrawable(rlArticle.context, it) }
+
+            rlArticle.background = getCategoryById(article.categorie)?.color?.let { ContextCompat.getDrawable(rlArticle.context, it) }
 
             tvArticleTitle.text = article.titre
             tvArticleDate.text = dateFormater(article.createdAt)
@@ -77,7 +77,6 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
                         MainFragmentDirections.actionMainFragmentToNewEditArticleFragment(article.id)
                     } else {
                         MainFragmentDirections.actionMainFragmentToDetailsArticleFragment(article.id)
-
                     }
                     view.findNavController().navigate(navDir)
                 }
