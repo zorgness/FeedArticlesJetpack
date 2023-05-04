@@ -41,13 +41,15 @@
                 />
 
 
-            <CheckBox
-                android:id="@+id/btn_favorite_filter"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <ImageView
+                android:id="@+id/iv_btn_favorite_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@drawable/checkbox_star"
-               />
+                android:contentDescription="@string/favori"
+                android:src="@android:drawable/btn_star_big_off"
+
+                />
 
             <ImageView
                 android:id="@+id/btn_logout"

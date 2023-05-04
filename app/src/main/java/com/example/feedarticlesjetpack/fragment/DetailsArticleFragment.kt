@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
+import com.example.feedarticlesjetpack.common.getStarIcon
 import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
 import com.example.feedarticlesjetpack.extensions.bool
 import com.squareup.picasso.Picasso
@@ -108,13 +109,6 @@ class DetailsArticleFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    private fun getStarIcon(isFav : Boolean): Int =
-        if(isFav) {
-            android.R.drawable.btn_star_big_on
-        } else {
-            android.R.drawable.btn_star_big_off
-        }
 
 }
 

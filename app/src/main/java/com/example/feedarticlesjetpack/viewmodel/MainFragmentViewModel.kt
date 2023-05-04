@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.feedarticlesjetpack.common.responseArticlesStatus
+import com.example.feedarticlesjetpack.extensions.bool
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_ALL_CATEGORY) }
 
-    private val _favLiveData = MutableLiveData<Int>()
+    private val _isFavFilterLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
 
     private val _messageLiveData = MutableLiveData<String>()
 
@@ -49,8 +50,8 @@ class MainFragmentViewModel @Inject constructor(
     private val categoryIdLiveData: LiveData<Int>
         get() = _categoryIdLiveData
 
-    val favLiveData: LiveData<Int>
-        get() = _favLiveData
+    val isFavFilterLiveData: LiveData<Boolean>
+        get() = _isFavFilterLiveData
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
@@ -62,9 +63,10 @@ class MainFragmentViewModel @Inject constructor(
         get() = _progressBarVisibilityLiveData
 
     init {
-        Handler().postDelayed({
-            getAllArticles()
-        }, 1500)
+        getAllArticles()
+        /* Handler().postDelayed({
+             getAllArticles()
+         }, 1500)*/
     }
 
     fun getCheckedCategory(checkedId: Int) {
@@ -73,7 +75,8 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun setFavoriteFilter() {
-
+        _isFavFilterLiveData.value = !_isFavFilterLiveData.value!!
+        getAllArticles()
     }
 
     fun getAllArticles() {
@@ -100,15 +103,25 @@ class MainFragmentViewModel @Inject constructor(
                         _messageLiveData.value = context.getString(R.string.server_error)
                     }
 
-                    responseCategories.isSuccessful &&  (body != null) -> {
+                    responseCategories.isSuccessful && (body != null) -> {
                         _messageLiveData.value =
                             responseArticlesStatus(body.status, context)
                         if (categoryIdLiveData.value == ID_ALL_CATEGORY || categoryIdLiveData.value == null)
-                            _articlesLiveData.value = body.articles
+                            if (isFavFilterLiveData.value == true)
+                                _articlesLiveData.value =
+                                    body.articles.filter { element -> element.isFav.bool == isFavFilterLiveData.value }
+                            else
+                                _articlesLiveData.value = body.articles
                         else
-                            _articlesLiveData.value = body.articles.filter { element ->
-                                element.categorie == categoryIdLiveData.value
-                            }
+                            if (isFavFilterLiveData.value == true)
+                                _articlesLiveData.value = body.articles.filter { element ->
+                                    element.categorie == categoryIdLiveData.value
+                                }
+                                    .filter { element -> element.isFav.bool == isFavFilterLiveData.value }
+                            else
+                                _articlesLiveData.value = body.articles.filter { element ->
+                                    element.categorie == categoryIdLiveData.value
+                                }
                         _progressBarVisibilityLiveData.value = false
                     }
 

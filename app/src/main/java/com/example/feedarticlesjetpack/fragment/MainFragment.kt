@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.adapter.ArticleAdapter
+import com.example.feedarticlesjetpack.common.getStarIcon
 import com.example.feedarticlesjetpack.databinding.FragmentMainBinding
 import com.example.feedarticlesjetpack.viewmodel.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +33,7 @@ class MainFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var ivIconStar: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,6 +47,10 @@ class MainFragment : Fragment() {
 
         myViewModel.progressBarVisibilityLiveData.observe(this) { visibility ->
             progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+        }
+
+        myViewModel.isFavFilterLiveData.observe(this) { isFiltered ->
+            ivIconStar.setImageResource(getStarIcon(isFiltered))
         }
 
 
@@ -74,6 +81,7 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         progressBar = binding.pbCyclic
+        ivIconStar = binding.ivBtnFavoriteFilter
 
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
         articleAdapter = ArticleAdapter()
@@ -93,7 +101,7 @@ class MainFragment : Fragment() {
             myViewModel.getCheckedCategory(getCategoryIdByRadioButton(checkedId))
         }
 
-        binding.btnFavoriteFilter.setOnClickListener {
+        binding.ivBtnFavoriteFilter.setOnClickListener {
             myViewModel.setFavoriteFilter()
         }
 
