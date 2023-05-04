@@ -3,6 +3,7 @@ package com.example.feedarticlesjetpack.viewmodel
 import ERROR_403
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
+import STATUS_MUTATION_ARTICLE_SUCCESS
 import USER_TOKEN
 import WITH_FAVORITES
 import android.content.Context
@@ -71,7 +72,8 @@ class DetailsArticleFragmentViewModel @Inject constructor(
 
                     responseSetFavorite.isSuccessful && (body != null) -> {
                         _messageLiveData.value = responseFavoriteStateArticleStatus(body.status, context)
-                        _isArticleFavoriteLiveData.value = !_isArticleFavoriteLiveData.value!!
+                        if(body.status == STATUS_MUTATION_ARTICLE_SUCCESS)
+                            _isArticleFavoriteLiveData.value = !_isArticleFavoriteLiveData.value!!
                     }
 
                     responseSetFavorite.code() == ERROR_403 -> {

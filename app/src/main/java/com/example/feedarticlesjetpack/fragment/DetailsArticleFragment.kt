@@ -1,6 +1,5 @@
 package com.example.feedarticlesjetpack.fragment
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +51,7 @@ class DetailsArticleFragment : Fragment() {
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                sharedViewModel.askForRefreshArticlesList()
+                sharedViewModel.requestForRefreshArticlesList()
                 findNavController().navigate(R.id.mainFragment)
             }
         })
@@ -68,12 +67,14 @@ class DetailsArticleFragment : Fragment() {
         ivIconStar = binding.ivBtnStar
 
         binding.btnReturn.setOnClickListener {
-            sharedViewModel.askForRefreshArticlesList()
+            sharedViewModel.requestForRefreshArticlesList()
             findNavController().navigate(R.id.mainFragment)
-            //findNavController().navigateUp()
         }
 
         sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
+
+            myViewModel.getArticleFavoriteStatus(article.isFav.bool)
+
             binding.tvArticleTitle.text = article.titre
             binding.tvArticleDescription.text = article.descriptif
             binding.tvArticleDate.text =
@@ -83,7 +84,7 @@ class DetailsArticleFragment : Fragment() {
 
             if (article.urlImage.isEmpty()) {
                 Picasso.get()
-                    .load(android.R.color.transparent)
+                    .load(R.drawable.feedarticles_logo)
                     .resize(300, 300)
                     .into(binding.ivArticleImage)
             } else {
@@ -93,7 +94,7 @@ class DetailsArticleFragment : Fragment() {
                     .into(binding.ivArticleImage)
             }
 
-            myViewModel.getArticleFavoriteStatus(article.isFav.bool)
+
 
             binding.ivBtnStar.setImageResource(getStarIcon(article.isFav.bool))
 

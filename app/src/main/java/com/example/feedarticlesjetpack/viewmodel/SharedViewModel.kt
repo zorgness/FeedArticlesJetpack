@@ -44,7 +44,7 @@ class SharedViewModel @Inject constructor(
     val refreshListLiveData: LiveData<Boolean>
         get() = _refreshListLiveData
 
-    fun askForRefreshArticlesList() {
+    fun requestForRefreshArticlesList() {
         _refreshListLiveData.value = true
     }
 

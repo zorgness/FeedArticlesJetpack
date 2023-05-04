@@ -17,7 +17,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
-import com.example.feedarticlesjetpack.databinding.FragmentLoginBinding
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
 import com.squareup.picasso.Picasso
@@ -42,7 +41,7 @@ class NewEditArticleFragment : Fragment() {
 
         myViewModel.statusLiveData.observe(this) { status ->
             (status == STATUS_MUTATION_ARTICLE_SUCCESS).run {
-                sharedViewModel.askForRefreshArticlesList()
+                sharedViewModel.requestForRefreshArticlesList()
                 findNavController().navigate(
                     R.id.mainFragment, null,
                     NavOptions.Builder().setPopUpTo(
@@ -54,7 +53,7 @@ class NewEditArticleFragment : Fragment() {
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                sharedViewModel.askForRefreshArticlesList()
+                sharedViewModel.requestForRefreshArticlesList()
                 findNavController().navigate(R.id.mainFragment)
             }
         })
