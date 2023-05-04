@@ -69,7 +69,7 @@ class RegisterViewModel @Inject constructor(
                                     Context.MODE_PRIVATE
                                 )?.edit()
                                     ?.putString(SHAREDPREF_SESSION_TOKEN, body.token)
-                                    ?.putInt(SHAREDPREF_SESSION_USER_ID, body.id)
+                                    ?.putLong(SHAREDPREF_SESSION_USER_ID, body.id)
                                     ?.apply()
 
                                 _statusLiveData.value = body.status

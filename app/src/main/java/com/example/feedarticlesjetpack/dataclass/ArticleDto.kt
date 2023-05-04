@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class ArticleDto(
     @Json(name = "id")
-    val id: Int,
+    val id: Long,
     @Json(name = "titre")
     val titre: String,
     @Json(name = "descriptif")
@@ -17,7 +17,7 @@ data class ArticleDto(
     @Json(name = "created_at")
     val createdAt: String,
     @Json(name = "id_u")
-    val idU: Int,
+    val idU: Long,
     @Json(name = "is_fav")
     val isFav: Int
 )

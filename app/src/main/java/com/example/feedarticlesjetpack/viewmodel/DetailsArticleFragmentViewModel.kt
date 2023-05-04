@@ -5,23 +5,14 @@ import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import STATUS_MUTATION_ARTICLE_SUCCESS
 import USER_TOKEN
-import WITH_FAVORITES
 import android.content.Context
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.feedarticlesjetpack.R
-import com.example.feedarticlesjetpack.common.responseArticlesStatus
-import com.example.feedarticlesjetpack.common.responseDeleteArticleStatus
 import com.example.feedarticlesjetpack.common.responseFavoriteStateArticleStatus
-import com.example.feedarticlesjetpack.dataclass.ArticleDto
-import com.example.feedarticlesjetpack.dataclass.GetArticleDto
 import com.example.feedarticlesjetpack.dataclass.StatusDto
-import com.example.feedarticlesjetpack.extensions.bool
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +40,7 @@ class DetailsArticleFragmentViewModel @Inject constructor(
         _isArticleFavoriteLiveData.value = isFav
     }
 
-    fun setFavoriteStatus(articleId: Int) {
+    fun setFavoriteStatus(articleId: Long) {
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
@@ -60,7 +51,7 @@ class DetailsArticleFragmentViewModel @Inject constructor(
 
             viewModelScope.launch {
                 val responseSetFavorite: Response<StatusDto>? = withContext(Dispatchers.IO) {
-                    apiService.addArticleToFavorite(articleId, header)
+                    apiService.changeFavoriteStatusArticle(articleId, header)
                 }
 
                 val body = responseSetFavorite?.body()

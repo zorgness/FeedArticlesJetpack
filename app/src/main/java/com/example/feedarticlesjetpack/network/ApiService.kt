@@ -33,13 +33,13 @@ interface ApiService {
     @GET(ApiRoutes.ARTICLES)
     suspend fun getArticleById(
         @HeaderMap headers: Map<String, String>,
-        @Query("id") articleId: Int,
+        @Query("id") articleId: Long,
         @Query("with_fav") withFav: Int?
     ): Response<GetArticleDto>?
 
     @POST(ApiRoutes.ARTICLES)
     suspend fun updateArticle(
-        @Query("id") articleId: Int,
+        @Query("id") articleId: Long,
         @HeaderMap headers: Map<String, String>,
         @Body updateArticleDto: UpdateArticleDto
 
@@ -48,13 +48,13 @@ interface ApiService {
 
     @DELETE(ApiRoutes.ARTICLES)
     suspend fun deleteArticle(
-        @Query("id") articleId: Int,
+        @Query("id") articleId: Long,
         @HeaderMap headers: Map<String, String>
     ): Response<StatusDto>?
 
     @PUT(ApiRoutes.ARTICLES)
-    suspend fun addArticleToFavorite(
-        @Query("id") articleId: Int,
+    suspend fun changeFavoriteStatusArticle(
+        @Query("id") articleId: Long,
         @HeaderMap headers: Map<String, String>
     ): Response<StatusDto>?
 

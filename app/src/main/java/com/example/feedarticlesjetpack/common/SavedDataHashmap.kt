@@ -16,10 +16,6 @@ class SingletonHashMap() {
         map[key] = value
     }
 
-    fun clear() {
-        map.clear()
-    }
-
     fun removeCategoryId() {
         map.remove(CATEGORY_ID)
     }

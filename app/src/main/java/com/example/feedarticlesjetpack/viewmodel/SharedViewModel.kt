@@ -49,7 +49,7 @@ class SharedViewModel @Inject constructor(
     }
 
 
-    fun getArticleById(id: Int) {
+    fun getArticleById(articleId: Long) {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
 
@@ -61,7 +61,7 @@ class SharedViewModel @Inject constructor(
 
             viewModelScope.launch {
                 val responseArticle: Response<GetArticleDto>? = withContext(Dispatchers.IO) {
-                    apiService.getArticleById(headers, id, WITH_FAVORITES)
+                    apiService.getArticleById(headers, articleId, WITH_FAVORITES)
                 }
 
                 val body = responseArticle?.body()

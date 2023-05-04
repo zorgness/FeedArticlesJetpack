@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class UpdateArticleDto(
     @Json(name = "id")
-    val id: Int,
+    val id: Long,
     @Json(name = "title")
     val title: String,
     @Json(name = "desc")

@@ -22,6 +22,7 @@ import com.example.feedarticlesjetpack.dataclass.NewArticleDto
 import com.example.feedarticlesjetpack.dataclass.StatusDto
 import com.example.feedarticlesjetpack.dataclass.UpdateArticleDto
 import com.example.feedarticlesjetpack.extensions.is80charactersMax
+import com.example.feedarticlesjetpack.extensions.isPositive
 import com.example.feedarticlesjetpack.fragment.NewEditArticleFragment
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +40,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_DIVERS_CATEGORY) }
 
-    private val _articleIdLiveData = MutableLiveData<Int>()
+    private val _articleIdLiveData = MutableLiveData<Long>()
 
     private val _messageLiveData = MutableLiveData<String>()
 
@@ -52,7 +53,7 @@ class NewEditFragmentViewModel @Inject constructor(
     private val categoryIdLiveData: LiveData<Int>
         get() = _categoryIdLiveData
 
-    private val articleIdLiveData: LiveData<Int>
+    private val articleIdLiveData: LiveData<Long>
         get() = _articleIdLiveData
 
 
@@ -66,12 +67,12 @@ class NewEditFragmentViewModel @Inject constructor(
         _categoryIdLiveData.value = checkedId
     }
 
-    fun getArticleId(articleId: Int) {
+    fun getArticleId(articleId: Long) {
         _articleIdLiveData.value = articleId
     }
 
 
-    fun deleteArticle(articleId: Int) {
+    fun deleteArticle(articleId: Long) {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
             val headers = HashMap<String, String>()
@@ -181,7 +182,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
-            val userId = getInt(SHAREDPREF_SESSION_USER_ID, 0)
+            val userId = getLong(SHAREDPREF_SESSION_USER_ID, 0)
             val headers = HashMap<String, String>()
             val categoryId = categoryIdLiveData.value
 
@@ -195,7 +196,7 @@ class NewEditFragmentViewModel @Inject constructor(
             ) {
                 if (titleLiveData.value?.is80charactersMax == true) {
 
-                    if (userId != 0 && token != null) {
+                    if (userId.isPositive && token != null) {
 
                         viewModelScope.launch {
                             val responseNewArticle: Response<StatusDto>? =

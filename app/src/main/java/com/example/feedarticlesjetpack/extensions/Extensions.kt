@@ -10,6 +10,6 @@ fun Context.myToast(message: String) {
 
 val Int.bool:Boolean get() = this == 1
 
-val Int.isPositive:Boolean get() = this > 0
+val Long.isPositive:Boolean get() = this > 0
 
 val String.is80charactersMax:Boolean get() = this.length <= 80

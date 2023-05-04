@@ -7,7 +7,7 @@ data class SessionDto(
     @Json(name = "status")
     val status: Int,
     @Json(name = "id")
-    val id: Int,
+    val id: Long,
     @Json(name = "token")
     val token: String?
 )

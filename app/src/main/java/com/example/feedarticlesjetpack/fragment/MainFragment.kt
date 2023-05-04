@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.fragment
 
+import DEFAULT_ARTICLE_ID
 import ID_ALL_CATEGORY
 import ID_DIVERS_CATEGORY
 import ID_MANGA_CATEGORY
@@ -8,14 +9,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.adapter.ArticleAdapter
 import com.example.feedarticlesjetpack.common.getStarIcon
@@ -55,7 +53,7 @@ class MainFragment : Fragment() {
         }
 
         myViewModel.isFavFilterLiveData.observe(this) { isFiltered ->
-            binding.ivBtnFavoriteFilter.setImageResource(getStarIcon(isFiltered))
+            binding.ivBtnFavoriteFilter.setImageResource(getStarIcon(isFiltered || false))
         }
 
         // NAV OPTIONS IS FOR CLEARING ALL BACKSTACK AFTER LOGOUT
@@ -94,7 +92,7 @@ class MainFragment : Fragment() {
         }
 
         binding.btnNewArticle.setOnClickListener {
-            val navDir = MainFragmentDirections.actionMainFragmentToNewEditArticleFragment()
+            val navDir = MainFragmentDirections.actionMainFragmentToNewEditArticleFragment(DEFAULT_ARTICLE_ID)
             findNavController().navigate(navDir)
         }
 

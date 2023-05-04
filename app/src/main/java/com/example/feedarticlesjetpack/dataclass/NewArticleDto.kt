@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class NewArticleDto(
     @Json(name = "id_u")
-    val idU: Int,
+    val idU: Long,
     @Json(name = "title")
     val title: String,
     @Json(name = "desc")
