@@ -32,3 +32,4 @@ const val STATUS_ARTICLES_ERROR_CON = "error_connection"
 const val ERROR_403 = 403
 
 const val WITH_FAVORITES = 1
+const val FAVORITE = 1

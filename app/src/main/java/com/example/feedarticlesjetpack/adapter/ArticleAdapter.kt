@@ -1,5 +1,6 @@
 package com.example.feedarticlesjetpack.adapter
 
+import FAVORITE
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_USER_ID
 import android.content.Context
@@ -66,8 +67,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
             tvArticleDate.text = dateFormater(article.createdAt)
             tvArticleDescription.text = article.descriptif
 
-            ivFavorite.visibility = if(article.isFav == 1) View.VISIBLE else View.GONE
-
+            ivFavorite.visibility = if(article.isFav == FAVORITE) View.VISIBLE else View.GONE
 
             myPicassoFun(article.urlImage, ivArticleItem)
 
@@ -87,6 +87,5 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemRvArticleBinding.bind(itemView)
-
     }
 }
