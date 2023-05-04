@@ -8,6 +8,7 @@ import SHAREDPREF_SESSION_USER_ID
 import USER_TOKEN
 import android.app.AlertDialog
 import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ import com.example.feedarticlesjetpack.common.responseUpdateArticleStatus
 import com.example.feedarticlesjetpack.dataclass.NewArticleDto
 import com.example.feedarticlesjetpack.dataclass.StatusDto
 import com.example.feedarticlesjetpack.dataclass.UpdateArticleDto
+import com.example.feedarticlesjetpack.fragment.NewEditArticleFragment
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -36,12 +38,22 @@ class NewEditFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_DIVERS_CATEGORY) }
 
-    private val categoryIdLiveData: LiveData<Int>
-        get() = _categoryIdLiveData
+    private val _articleIdLiveData = MutableLiveData<Int>()
 
     private val _messageLiveData = MutableLiveData<String>()
 
     private val _statusLiveData = MutableLiveData<Int>()
+
+    val titleLiveData = MutableLiveData<String>("")
+    val descriptionLiveData = MutableLiveData<String>("")
+    val imageUrlLiveData = MutableLiveData<String>("")
+
+    private val categoryIdLiveData: LiveData<Int>
+        get() = _categoryIdLiveData
+
+    private val articleIdLiveData: LiveData<Int>
+        get() = _articleIdLiveData
+
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
@@ -51,6 +63,10 @@ class NewEditFragmentViewModel @Inject constructor(
 
     fun getCheckedCategory(checkedId: Int) {
         _categoryIdLiveData.value = checkedId
+    }
+
+    fun getArticleId(articleId: Int) {
+        _articleIdLiveData.value = articleId
     }
 
 
@@ -90,7 +106,7 @@ class NewEditFragmentViewModel @Inject constructor(
 
     }
 
-    fun updateArticle(articleId: Int, title: String, description: String, imageUrl: String) {
+    fun updateArticle() {
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
             val headers = HashMap<String, String>()
@@ -100,23 +116,29 @@ class NewEditFragmentViewModel @Inject constructor(
                 headers[USER_TOKEN] = token
             }
 
-            if (title.isNotBlank() && description.isNotBlank() && imageUrl.isNotBlank() && categoryId != null) {
+            if (titleLiveData.value?.isNotBlank() == true
+                && descriptionLiveData.value?.isNotBlank() == true
+                && imageUrlLiveData.value?.isNotBlank() == true
+                && categoryId != null
+            )  {
                 if (token != null) {
 
                     viewModelScope.launch {
                         val responseUpdateArticle: Response<StatusDto>? =
                             withContext(Dispatchers.IO) {
-                                apiService.updateArticle(
-                                    articleId,
-                                    headers,
-                                    UpdateArticleDto(
+                                articleIdLiveData.value?.let { articleId ->
+                                    apiService.updateArticle(
                                         articleId,
-                                        title,
-                                        description,
-                                        imageUrl,
-                                        categoryId
+                                        headers,
+                                        UpdateArticleDto(
+                                            articleId,
+                                            titleLiveData.value!!,
+                                            descriptionLiveData.value!!,
+                                            imageUrlLiveData.value!!,
+                                            categoryId
+                                        )
                                     )
-                                )
+                                }
                             }
 
                         val body = responseUpdateArticle?.body()
@@ -147,7 +169,7 @@ class NewEditFragmentViewModel @Inject constructor(
         }
     }
 
-    fun newArticle(title: String, description: String, imageUrl: String) {
+    fun newArticle() {
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             val token = getString(SHAREDPREF_SESSION_TOKEN, null)
@@ -158,7 +180,11 @@ class NewEditFragmentViewModel @Inject constructor(
             if (token != null)
                 headers[USER_TOKEN] = token
 
-            if (title.isNotBlank() && description.isNotBlank() && imageUrl.isNotBlank() && categoryId != null) {
+            if (titleLiveData.value?.isNotBlank() == true
+                && descriptionLiveData.value?.isNotBlank() == true
+                && imageUrlLiveData.value?.isNotBlank() == true
+                && categoryId != null
+            ) {
                 if (userId != 0 && token != null) {
 
                     viewModelScope.launch {
@@ -166,9 +192,9 @@ class NewEditFragmentViewModel @Inject constructor(
                             apiService.newArticle(
                                 NewArticleDto(
                                     userId,
-                                    title,
-                                    description,
-                                    imageUrl,
+                                    titleLiveData.value!!,
+                                    descriptionLiveData.value!!,
+                                    imageUrlLiveData.value!!,
                                     categoryId
                                 ), headers
                             )

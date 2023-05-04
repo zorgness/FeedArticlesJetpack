@@ -10,3 +10,5 @@ fun Context.myToast(message: String) {
 
 val Int.bool:Boolean get() = this == 1
 
+val Int.isPositive:Boolean get() = this > 0
+

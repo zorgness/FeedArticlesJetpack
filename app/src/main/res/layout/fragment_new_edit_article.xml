@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="titleData"
-            type="String" />
-
-        <variable
-            name="descriptionData"
-            type="String" />
-
-        <variable
-            name="imageUrlData"
-            type="String" />
+            name="viewModel"
+            type="com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel" />
 
     </data>
 
@@ -55,11 +47,11 @@
                 android:ems="10"
                 android:hint="@string/titre_label"
                 android:inputType="textPersonName"
-                android:text="@={titleData}"
+                android:text="@={viewModel.titleLiveData}"
                 android:textColorHighlight="@color/blue_primary"
                 android:textColorHint="@color/blue_primary" />
 
-            <!-- TO BE CHANGED -->
+
             <EditText
                 android:id="@+id/et_description_article"
                 android:layout_width="match_parent"
@@ -71,9 +63,8 @@
                 android:hint="@string/contenu"
                 android:inputType="textMultiLine"
                 android:lines="6"
-                android:text="@={descriptionData}"
+                android:text="@={viewModel.descriptionLiveData}"
                 android:textColorHint="@color/blue_primary" />
-            <!-- TO BE CHANGED -->
 
 
             <EditText
@@ -85,7 +76,7 @@
                 android:ems="10"
                 android:hint="@string/image_url"
                 android:inputType="textUri"
-                android:text="@={imageUrlData}"
+                android:text="@={viewModel.imageUrlLiveData}"
                 android:textColorHint="@color/blue_primary" />
 
 
@@ -112,8 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
 
                     <RadioButton
@@ -138,43 +128,46 @@
 
             </LinearLayout>
 
-           <Button
+            <Button
                 android:id="@+id/btn_save_article"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:onClick="@{() -> viewModel.newArticle()}"
                 android:text="@string/enregister" />
 
 
-        <LinearLayout
-            android:id="@+id/btn_group_update_delete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="40dp">
-            <Button
-                android:id="@+id/btn_delete_article"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/btn_group_update_delete"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/supprimer" />
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1" />
-            <Button
-                android:id="@+id/btn_edit_article"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/mettre_jour" />
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_delete_article"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/supprimer" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+                <Button
+                    android:id="@+id/btn_edit_article"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/mettre_jour"
+                    android:onClick="@{() -> viewModel.updateArticle()}"/>
 
 
-
-        </LinearLayout>
-
+            </LinearLayout>
 
 
         </LinearLayout>

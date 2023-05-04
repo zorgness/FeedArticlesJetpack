@@ -17,9 +17,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
+import com.example.feedarticlesjetpack.common.myPicassoFun
 import com.example.feedarticlesjetpack.databinding.FragmentNewEditArticleBinding
+import com.example.feedarticlesjetpack.extensions.isPositive
 import com.example.feedarticlesjetpack.viewmodel.NewEditFragmentViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
 import com.example.feedarticlesjetpack.viewmodel.SharedViewModel
@@ -66,100 +67,55 @@ class NewEditArticleFragment : Fragment() {
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_edit_article, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.radioGroup.setOnCheckedChangeListener() { _, checkedId ->
-            myViewModel.getCheckedCategory(getCategoryIdRadioButton(checkedId))
-        }
+        binding.viewModel = myViewModel
 
 
-        ///TO IMPROVE A LOT
-
-        if (args.articleId > 0) {
+        if (args.articleId.isPositive) {
             binding.tvNewEdit.text = getString(R.string.edit_article_title)
             binding.btnSaveArticle.visibility = View.GONE
 
             sharedViewModel.getArticleById(args.articleId)
 
             sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
+
+                //FILL FORM FOR UPDATE
+                myViewModel.getArticleId(article.id)
                 binding.etTitleArticle.setText(article.titre)
                 binding.etDescriptionArticle.setText(article.descriptif)
                 binding.etImageUrl.setText(article.urlImage)
                 binding.radioGroup.check(radioBtnCheckedByCategoryId(article.categorie))
-
-                //FIND ANOTHER SOLUTION
-                if (binding.etImageUrl.text.isNotEmpty()) {
-                    Picasso.get()
-                        .load(binding.etImageUrl.text.toString())
-                        .resize(300, 300)
-                        .error(R.drawable.feedarticles_logo)
-                        .into(binding.ivArticleImage)
-
-                } else if (binding.etImageUrl.text.isEmpty()) {
-                    Picasso.get()
-                        .load(R.drawable.feedarticles_logo)
-                        .resize(300, 300)
-                        .into(binding.ivArticleImage)
-                }
-                //FIND ANOTHER SOLUTION
+                myPicassoFun(binding.etImageUrl.text.toString(), binding.ivArticleImage)
 
 
-                binding.btnEditArticle.setOnClickListener {
-                    myViewModel.updateArticle(
-                        article.id,
-                        binding.titleData ?: "",
-                        binding.descriptionData ?: "",
-                        binding.imageUrlData ?: ""
-                    )
-                }
-
-                //TO IMPROVE
                 binding.btnDeleteArticle.setOnClickListener {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setMessage(R.string.are_you_sure_to_delete)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.yes) { _, _ ->
-                            myViewModel.deleteArticle(article.id)
-                        }
-                        .setNegativeButton(R.string.no) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                    val alert = builder.create()
-                    alert.show()
+                  AlertDialog.Builder(context).apply {
+                        setMessage(R.string.are_you_sure_to_delete)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                myViewModel.deleteArticle(article.id)
+                            }
+                            .setNegativeButton(R.string.no) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                    }.run {
+                        create()
+                        show()
+                    }
                 }
-
-
             }
-        } else {
+        } else
             binding.btnGroupUpdateDelete.visibility = View.GONE
 
-            binding.btnSaveArticle.setOnClickListener {
-                myViewModel.newArticle(
-                    binding.titleData ?: "",
-                    binding.descriptionData ?: "",
-                    binding.imageUrlData ?: ""
-                )
-            }
-        }
-
-
-        //FIND ANOTHER SOLUTION WITH DATA BINDING
         binding.etImageUrl.onFocusChangeListener = View.OnFocusChangeListener { _, isFocus ->
             val urlImageToVisualize = binding.etImageUrl.text.toString().trim { it <= ' ' }
-            if (urlImageToVisualize.isNotEmpty() && !isFocus) {
-                Picasso.get()
-                    .load(urlImageToVisualize)
-                    .resize(300, 300)
-                    .error(R.drawable.feedarticles_logo)
-                    .into(binding.ivArticleImage)
-
-            } else if (urlImageToVisualize.isEmpty()) {
-                Picasso.get()
-                    .load(R.drawable.feedarticles_logo)
-                    .resize(300, 300)
-                    .into(binding.ivArticleImage)
+            (!isFocus).run {
+                myPicassoFun(urlImageToVisualize, binding.ivArticleImage)
             }
         }
-        //FIND ANOTHER SOLUTION WITH DATA BINDING
+
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            myViewModel.getCheckedCategory(getCategoryIdByRadioBtn(checkedId))
+        }
 
 
         return binding.root
@@ -170,7 +126,7 @@ class NewEditArticleFragment : Fragment() {
         _binding = null
     }
 
-    private fun getCategoryIdRadioButton(checkedId: Int) =
+    private fun getCategoryIdByRadioBtn(checkedId: Int) =
         when (checkedId) {
             R.id.radio_sport -> ID_SPORT_CATEGORY
             R.id.radio_manga -> ID_MANGA_CATEGORY

@@ -14,6 +14,7 @@ import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
 import com.example.feedarticlesjetpack.common.getStarIcon
+import com.example.feedarticlesjetpack.common.myPicassoFun
 import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
 import com.example.feedarticlesjetpack.extensions.bool
 import com.squareup.picasso.Picasso
@@ -82,19 +83,7 @@ class DetailsArticleFragment : Fragment() {
             binding.tvArticleCategory.text =
                 getString(R.string.categorie).format(getCategoryById(article.categorie)?.name)
 
-            if (article.urlImage.isEmpty()) {
-                Picasso.get()
-                    .load(R.drawable.feedarticles_logo)
-                    .resize(300, 300)
-                    .into(binding.ivArticleImage)
-            } else {
-                Picasso.get()
-                    .load(article.urlImage).error(R.drawable.feedarticles_logo)
-                    .resize(300, 300)
-                    .into(binding.ivArticleImage)
-            }
-
-
+            myPicassoFun(article.urlImage, binding.ivArticleImage)
 
             binding.ivBtnStar.setImageResource(getStarIcon(article.isFav.bool))
 
