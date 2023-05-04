@@ -38,7 +38,5 @@ class SplashFragmentViewModel @Inject constructor(
                     else
                         SplashFragmentDirections.actionSplashFragmentToLoginFragment()
             }
-
     }
-
 }

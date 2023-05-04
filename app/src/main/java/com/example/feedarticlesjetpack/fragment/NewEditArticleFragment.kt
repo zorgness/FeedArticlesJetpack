@@ -106,10 +106,12 @@ class NewEditArticleFragment : Fragment() {
         } else
             binding.btnGroupUpdateDelete.visibility = View.GONE
 
+
         binding.etImageUrl.onFocusChangeListener = View.OnFocusChangeListener { _, isFocus ->
-            val urlImageToVisualize = binding.etImageUrl.text.toString().trim { it <= ' ' }
-            (!isFocus).run {
-                myPicassoFun(urlImageToVisualize, binding.ivArticleImage)
+            binding.etImageUrl.text.toString().trim { it <= ' ' }.let {imageUrl->
+                (!isFocus).run {
+                    myPicassoFun(imageUrl, binding.ivArticleImage)
+                }
             }
         }
 

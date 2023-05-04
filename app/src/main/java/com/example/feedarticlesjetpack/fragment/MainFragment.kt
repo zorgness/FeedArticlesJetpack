@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
             ivIconStar.setImageResource(getStarIcon(isFiltered))
         }
 
-        // TODO explication
+        // NAV OPTIONS IS FOR CLEARING ALL BACKSTACK AFTER LOGOUT
         myViewModel.isLogoutLiveData.observe(this) { isLogout ->
             (isLogout).run {
                 findNavController().navigate(
@@ -69,7 +69,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        // TODO explication
+        //REQUEST FROM FORM FRAGMENT TO REFRESH ARTICLE LIST AFTER ARTICLE MUTATION
         sharedViewModel.refreshListLiveData.observe(this) { refreshList ->
             (refreshList).run {
                 myViewModel.getAllArticles()
@@ -82,13 +82,13 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        progressBar = binding.pbCyclic
-        ivIconStar = binding.ivBtnFavoriteFilter
-        swipeRefreshLayout = binding.swipeContainer
-
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
         articleAdapter = ArticleAdapter()
         binding.rvArticles.adapter = articleAdapter
+
+        progressBar = binding.pbCyclic
+        ivIconStar = binding.ivBtnFavoriteFilter
+        swipeRefreshLayout = binding.swipeContainer
 
 
         binding.btnLogout.setOnClickListener {
