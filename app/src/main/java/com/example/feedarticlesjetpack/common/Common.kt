@@ -20,8 +20,10 @@ import STATUS_USER_FAILURE
 import STATUS_USER_PARAMETERS_PROBLEM
 import STATUS_USER_SUCCESS
 import android.content.Context
+import android.widget.ImageView
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.dataclass.CategoryData
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 
 fun responseRegisterStatus(status: Int?, context: Context): String =
@@ -114,3 +116,17 @@ fun getStarIcon(isFav : Boolean): Int =
     } else {
         android.R.drawable.btn_star_big_off
     }
+
+fun myPicassoFun(url: String, ivToInsert: ImageView ) {
+    if (url.isEmpty()) {
+        Picasso.get()
+            .load(R.drawable.feedarticles_logo)
+            .resize(300, 300)
+            .into(ivToInsert)
+    } else {
+        Picasso.get()
+            .load(url).error(R.drawable.feedarticles_logo)
+            .resize(300, 300)
+            .into(ivToInsert)
+    }
+}

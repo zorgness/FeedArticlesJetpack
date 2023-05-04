@@ -18,6 +18,7 @@ import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.squareup.picasso.Picasso
 import com.example.feedarticlesjetpack.common.dateFormater
 import com.example.feedarticlesjetpack.common.getCategoryById
+import com.example.feedarticlesjetpack.common.myPicassoFun
 import com.example.feedarticlesjetpack.fragment.MainFragmentDirections
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -67,19 +68,8 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
 
             ivFavorite.visibility = if(article.isFav == 1) View.VISIBLE else View.GONE
 
-            //TO BE IMPROVED
-            if (article.urlImage.isEmpty()) {
-                Picasso.get()
-                    .load(R.drawable.feedarticles_logo)
-                    .resize(300, 300)
-                    .into(ivArticleItem)
-            } else {
-                Picasso.get()
-                    .load(article.urlImage).error(R.drawable.feedarticles_logo)
-                    .resize(300, 300)
-                    .into(ivArticleItem)
-            }
-            //TO BE IMPROVED
+
+            myPicassoFun(article.urlImage, ivArticleItem)
 
             rlArticle.setOnClickListener {view->
                 with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
