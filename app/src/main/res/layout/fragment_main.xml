@@ -61,13 +61,22 @@
 
         </LinearLayout>
 
+        <!--SwipeRefreshLayout-->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/radio_layout"
+            android:layout_below="@+id/relative_layout_top">
+
         <!--RecyclerView-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_articles"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/radio_layout"
-            android:layout_below="@+id/relative_layout_top" />
+             />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <!--Radio-->
         <LinearLayout

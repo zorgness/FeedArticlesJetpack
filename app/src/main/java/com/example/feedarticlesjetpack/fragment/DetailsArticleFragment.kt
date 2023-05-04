@@ -70,6 +70,7 @@ class DetailsArticleFragment : Fragment() {
         binding.btnReturn.setOnClickListener {
             sharedViewModel.askForRefreshArticlesList()
             findNavController().navigate(R.id.mainFragment)
+            //findNavController().navigateUp()
         }
 
         sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->

@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.adapter.ArticleAdapter
 import com.example.feedarticlesjetpack.common.getStarIcon
@@ -34,10 +35,12 @@ class MainFragment : Fragment() {
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var ivIconStar: ImageView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         myViewModel.articlesLiveData.observe(this) { articles ->
+            swipeRefreshLayout.isRefreshing = false;
             articleAdapter.submitList(articles)
         }
 
@@ -52,7 +55,6 @@ class MainFragment : Fragment() {
         myViewModel.isFavFilterLiveData.observe(this) { isFiltered ->
             ivIconStar.setImageResource(getStarIcon(isFiltered))
         }
-
 
         // TODO explication
         myViewModel.isLogoutLiveData.observe(this) { isLogout ->
@@ -82,6 +84,7 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         progressBar = binding.pbCyclic
         ivIconStar = binding.ivBtnFavoriteFilter
+        swipeRefreshLayout = binding.swipeContainer
 
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
         articleAdapter = ArticleAdapter()
@@ -105,6 +108,9 @@ class MainFragment : Fragment() {
             myViewModel.setFavoriteFilter()
         }
 
+        binding.swipeContainer.setOnRefreshListener {
+            myViewModel.getAllArticles()
+        }
 
         return binding.root
     }
