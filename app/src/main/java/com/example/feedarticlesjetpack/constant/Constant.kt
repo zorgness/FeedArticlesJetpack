@@ -33,3 +33,7 @@ const val ERROR_403 = 403
 
 const val WITH_FAVORITES = 1
 const val FAVORITE = 1
+
+const val IS_FAVORITE_FILTER_ON = "is_favorite_filter_on"
+const val CATEGORY_ID = "categoryId"
+

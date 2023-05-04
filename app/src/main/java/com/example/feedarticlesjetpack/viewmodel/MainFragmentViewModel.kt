@@ -1,19 +1,18 @@
 package com.example.feedarticlesjetpack.viewmodel
 
+import CATEGORY_ID
 import ERROR_403
 import ID_ALL_CATEGORY
+import IS_FAVORITE_FILTER_ON
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
 import USER_TOKEN
 import WITH_FAVORITES
 import android.content.Context
-import android.os.Handler
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.feedarticlesjetpack.R
+import com.example.feedarticlesjetpack.common.SingletonHashMap
 import com.example.feedarticlesjetpack.dataclass.ArticleDto
 import com.example.feedarticlesjetpack.dataclass.GetArticlesDto
 import com.example.feedarticlesjetpack.network.ApiService
@@ -29,14 +28,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val apiService: ApiService,
-    private val context: Context
+    private val context: Context,
+    private val singletonHashMap: SingletonHashMap
 ) : ViewModel() {
 
     private val _articlesLiveData = MutableLiveData<List<ArticleDto>>()
 
-    private val _categoryIdLiveData = MutableLiveData<Int>().apply { postValue(ID_ALL_CATEGORY) }
+    private val _categoryIdLiveData = MutableLiveData<Int>()
 
-    private val _isFavFilterLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
+    private val _isFavFilterLiveData = MutableLiveData<Boolean>(false)
 
     private val _messageLiveData = MutableLiveData<String>()
 
@@ -47,11 +47,12 @@ class MainFragmentViewModel @Inject constructor(
     val articlesLiveData: LiveData<List<ArticleDto>>
         get() = _articlesLiveData
 
-    private val categoryIdLiveData: LiveData<Int>
-        get() = _categoryIdLiveData
+    val categoryIdLiveData: LiveData<Int>
+        get() = (singletonHashMap.get(CATEGORY_ID) ?: _categoryIdLiveData) as LiveData<Int>
 
     val isFavFilterLiveData: LiveData<Boolean>
-        get() = _isFavFilterLiveData
+        get() = (singletonHashMap.get(IS_FAVORITE_FILTER_ON)
+            ?: _isFavFilterLiveData) as LiveData<Boolean>
 
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
@@ -63,23 +64,26 @@ class MainFragmentViewModel @Inject constructor(
         get() = _progressBarVisibilityLiveData
 
     init {
-        getAllArticles()
-        /* Handler().postDelayed({
-             getAllArticles()
-         }, 1500)*/
+        getArticlesListForArticleAdapter()
     }
 
     fun getCheckedCategory(checkedId: Int) {
+
+        singletonHashMap.removeCategoryId()
         _categoryIdLiveData.value = checkedId
-        getAllArticles()
+        singletonHashMap.set(CATEGORY_ID, categoryIdLiveData as LiveData<Any>)
+        getArticlesListForArticleAdapter()
     }
 
     fun setFavoriteFilter() {
-        _isFavFilterLiveData.value = !_isFavFilterLiveData.value!!
-        getAllArticles()
+
+        singletonHashMap.removeIsFavoriteFilter()
+        _isFavFilterLiveData.value = !isFavFilterLiveData.value!!
+        singletonHashMap.set(IS_FAVORITE_FILTER_ON, isFavFilterLiveData as LiveData<Any>)
+        getArticlesListForArticleAdapter()
     }
 
-    fun getAllArticles() {
+    fun getArticlesListForArticleAdapter() {
 
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
 

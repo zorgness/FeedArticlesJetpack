@@ -44,6 +44,10 @@ class MainFragment : Fragment() {
             articleAdapter.submitList(articles)
         }
 
+        myViewModel.categoryIdLiveData.observe(this) { categoryId ->
+            binding.radioGroup.check(radioBtnCheckedByCategoryId(categoryId))
+        }
+
         myViewModel.messageLiveData.observe(this) { message ->
             activity?.myToast(message)
         }
@@ -69,10 +73,10 @@ class MainFragment : Fragment() {
             }
         }
 
-        //REQUEST FROM FORM FRAGMENT TO REFRESH ARTICLE LIST AFTER ARTICLE MUTATION
+        //REQUEST FROM FORM FRAGMENT TO REFRESH ARTICLE
         sharedViewModel.refreshListLiveData.observe(this) { refreshList ->
             (refreshList).run {
-                myViewModel.getAllArticles()
+                myViewModel.getArticlesListForArticleAdapter()
             }
         }
     }
@@ -86,6 +90,7 @@ class MainFragment : Fragment() {
         articleAdapter = ArticleAdapter()
         binding.rvArticles.adapter = articleAdapter
 
+        //TO CHANGE
         progressBar = binding.pbCyclic
         ivIconStar = binding.ivBtnFavoriteFilter
         swipeRefreshLayout = binding.swipeContainer
@@ -109,7 +114,7 @@ class MainFragment : Fragment() {
         }
 
         binding.swipeContainer.setOnRefreshListener {
-            myViewModel.getAllArticles()
+            myViewModel.getArticlesListForArticleAdapter()
         }
 
         return binding.root
@@ -122,6 +127,14 @@ class MainFragment : Fragment() {
             R.id.radio_manga-> ID_MANGA_CATEGORY
             R.id.radio_divers -> ID_DIVERS_CATEGORY
             else -> ID_ALL_CATEGORY
+        }
+
+    private fun radioBtnCheckedByCategoryId(categoryId: Int) =
+        when (categoryId) {
+            ID_SPORT_CATEGORY -> R.id.radio_sport
+            ID_MANGA_CATEGORY -> R.id.radio_manga
+            ID_DIVERS_CATEGORY -> R.id.radio_divers
+            else -> R.id.radio_all
         }
 
     override fun onDestroyView() {

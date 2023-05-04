@@ -40,6 +40,9 @@ class NewEditArticleFragment : Fragment() {
             activity?.myToast(message)
         }
 
+        // REQUEST TO REFRESH ARTICLE LIST AFTER ARTICLE MUTATION
+        // GO BACK TO MAIN FRAGMENT
+        // CLEAR BACKSTACK UNTIL MAIN FRAGMENT
         myViewModel.statusLiveData.observe(this) { status ->
             (status == STATUS_MUTATION_ARTICLE_SUCCESS).run {
                 sharedViewModel.requestForRefreshArticlesList()
