@@ -29,7 +29,7 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(
     private val apiService: ApiService,
     private val context: Context,
-    private val singletonHashMap: SingletonHashMap
+    private val savedDataHashMap: SingletonHashMap
 ) : ViewModel() {
 
     private val _articlesLiveData = MutableLiveData<List<ArticleDto>>()
@@ -48,10 +48,10 @@ class MainFragmentViewModel @Inject constructor(
         get() = _articlesLiveData
 
     val categoryIdLiveData: LiveData<Int>
-        get() = (singletonHashMap.get(CATEGORY_ID) ?: _categoryIdLiveData) as LiveData<Int>
+        get() = (savedDataHashMap.get(CATEGORY_ID) ?: _categoryIdLiveData) as LiveData<Int>
 
     val isFavFilterLiveData: LiveData<Boolean>
-        get() = (singletonHashMap.get(IS_FAVORITE_FILTER_ON)
+        get() = (savedDataHashMap.get(IS_FAVORITE_FILTER_ON)
             ?: _isFavFilterLiveData) as LiveData<Boolean>
 
     val messageLiveData: LiveData<String>
@@ -64,23 +64,25 @@ class MainFragmentViewModel @Inject constructor(
         get() = _progressBarVisibilityLiveData
 
     init {
-        _isFavFilterLiveData.value = false
         getArticlesListForArticleAdapter()
     }
 
     fun getCheckedCategory(checkedId: Int) {
 
-        singletonHashMap.removeCategoryId()
+        savedDataHashMap.removeCategoryId()
         _categoryIdLiveData.value = checkedId
-        singletonHashMap.set(CATEGORY_ID, categoryIdLiveData as LiveData<Any>)
+        savedDataHashMap.set(CATEGORY_ID, categoryIdLiveData as LiveData<Any>)
         getArticlesListForArticleAdapter()
     }
 
     fun setFavoriteFilter() {
 
-        singletonHashMap.removeIsFavoriteFilter()
-        _isFavFilterLiveData.value = !isFavFilterLiveData.value!!
-        singletonHashMap.set(IS_FAVORITE_FILTER_ON, isFavFilterLiveData as LiveData<Any>)
+        savedDataHashMap.removeIsFavoriteFilter()
+        if(isFavFilterLiveData.value != null)
+            _isFavFilterLiveData.value = !isFavFilterLiveData.value!!
+        else
+            _isFavFilterLiveData.value = true
+        savedDataHashMap.set(IS_FAVORITE_FILTER_ON, isFavFilterLiveData as LiveData<Any>)
         getArticlesListForArticleAdapter()
     }
 

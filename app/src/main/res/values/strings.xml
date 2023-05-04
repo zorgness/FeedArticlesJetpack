@@ -60,5 +60,7 @@
     <string name="are_you_sure_to_delete">Voulez-vous supprimer cet article ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="title_too_long">titre 80 caractères maximum</string>
+
 
 </resources>

@@ -21,6 +21,7 @@ import com.example.feedarticlesjetpack.common.responseUpdateArticleStatus
 import com.example.feedarticlesjetpack.dataclass.NewArticleDto
 import com.example.feedarticlesjetpack.dataclass.StatusDto
 import com.example.feedarticlesjetpack.dataclass.UpdateArticleDto
+import com.example.feedarticlesjetpack.extensions.is80charactersMax
 import com.example.feedarticlesjetpack.fragment.NewEditArticleFragment
 import com.example.feedarticlesjetpack.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -120,52 +121,59 @@ class NewEditFragmentViewModel @Inject constructor(
                 && descriptionLiveData.value?.isNotBlank() == true
                 && imageUrlLiveData.value?.isNotBlank() == true
                 && categoryId != null
-            )  {
-                if (token != null) {
+            ) {
+                if (titleLiveData.value?.is80charactersMax == true) {
 
-                    viewModelScope.launch {
-                        val responseUpdateArticle: Response<StatusDto>? =
-                            withContext(Dispatchers.IO) {
-                                articleIdLiveData.value?.let { articleId ->
-                                    apiService.updateArticle(
-                                        articleId,
-                                        headers,
-                                        UpdateArticleDto(
+                    if (token != null) {
+
+                        viewModelScope.launch {
+                            val responseUpdateArticle: Response<StatusDto>? =
+                                withContext(Dispatchers.IO) {
+                                    articleIdLiveData.value?.let { articleId ->
+                                        apiService.updateArticle(
                                             articleId,
-                                            titleLiveData.value!!,
-                                            descriptionLiveData.value!!,
-                                            imageUrlLiveData.value!!,
-                                            categoryId
+                                            headers,
+                                            UpdateArticleDto(
+                                                articleId,
+                                                titleLiveData.value!!,
+                                                descriptionLiveData.value!!,
+                                                imageUrlLiveData.value!!,
+                                                categoryId
+                                            )
                                         )
-                                    )
+                                    }
                                 }
+
+                            val body = responseUpdateArticle?.body()
+
+                            when {
+                                responseUpdateArticle == null -> {
+                                    _messageLiveData.value =
+                                        context.getString(R.string.server_error)
+                                }
+
+                                responseUpdateArticle.isSuccessful && (body != null) -> {
+                                    _messageLiveData.value =
+                                        responseUpdateArticleStatus(body.status, context)
+                                    _statusLiveData.value = body.status
+                                }
+
+                                responseUpdateArticle.code() == ERROR_403 ->
+                                    _messageLiveData.value =
+                                        context.getString(R.string.unauthorized)
+
                             }
-
-                        val body = responseUpdateArticle?.body()
-
-                        when {
-                            responseUpdateArticle == null -> {
-                                _messageLiveData.value = context.getString(R.string.server_error)
-                            }
-
-                            responseUpdateArticle.isSuccessful && (body != null) -> {
-                                _messageLiveData.value =
-                                    responseUpdateArticleStatus(body.status, context)
-                                _statusLiveData.value = body.status
-                            }
-
-                            responseUpdateArticle.code() == ERROR_403 ->
-                                _messageLiveData.value = context.getString(R.string.unauthorized)
-
                         }
-                    }
 
-                } else {
-                    _messageLiveData.value = context.getString(R.string.user_not_authenticated)
-                }
-            } else {
+                    } else
+                        _messageLiveData.value = context.getString(R.string.user_not_authenticated)
+
+                } else
+                    _messageLiveData.value = context.getString(R.string.title_too_long)
+
+            } else
                 _messageLiveData.value = context.getString(R.string.empty_fields)
-            }
+
         }
     }
 
@@ -185,46 +193,55 @@ class NewEditFragmentViewModel @Inject constructor(
                 && imageUrlLiveData.value?.isNotBlank() == true
                 && categoryId != null
             ) {
-                if (userId != 0 && token != null) {
+                if (titleLiveData.value?.is80charactersMax == true) {
 
-                    viewModelScope.launch {
-                        val responseNewArticle: Response<StatusDto>? = withContext(Dispatchers.IO) {
-                            apiService.newArticle(
-                                NewArticleDto(
-                                    userId,
-                                    titleLiveData.value!!,
-                                    descriptionLiveData.value!!,
-                                    imageUrlLiveData.value!!,
-                                    categoryId
-                                ), headers
-                            )
+                    if (userId != 0 && token != null) {
+
+                        viewModelScope.launch {
+                            val responseNewArticle: Response<StatusDto>? =
+                                withContext(Dispatchers.IO) {
+                                    apiService.newArticle(
+                                        NewArticleDto(
+                                            userId,
+                                            titleLiveData.value!!,
+                                            descriptionLiveData.value!!,
+                                            imageUrlLiveData.value!!,
+                                            categoryId
+                                        ), headers
+                                    )
+                                }
+
+                            val body = responseNewArticle?.body()
+
+                            when {
+                                responseNewArticle == null -> {
+                                    _messageLiveData.value =
+                                        context.getString(R.string.server_error)
+                                }
+
+                                responseNewArticle.isSuccessful && (body != null) -> {
+                                    _messageLiveData.value =
+                                        responseNewArticleStatus(body.status, context)
+                                    _statusLiveData.value = body.status
+                                }
+
+                                responseNewArticle.code() == ERROR_403 ->
+                                    _messageLiveData.value =
+                                        context.getString(R.string.unauthorized)
+
+                            }
                         }
 
-                        val body = responseNewArticle?.body()
+                    } else
+                        _messageLiveData.value = context.getString(R.string.user_not_authenticated)
 
-                        when {
-                            responseNewArticle == null -> {
-                                _messageLiveData.value = context.getString(R.string.server_error)
-                            }
 
-                            responseNewArticle.isSuccessful && (body != null) -> {
-                                _messageLiveData.value =
-                                    responseNewArticleStatus(body.status, context)
-                                _statusLiveData.value = body.status
-                            }
+                } else
+                    _messageLiveData.value = context.getString(R.string.title_too_long)
 
-                            responseNewArticle.code() == ERROR_403 ->
-                                _messageLiveData.value = context.getString(R.string.unauthorized)
-
-                        }
-                    }
-
-                } else {
-                    _messageLiveData.value = context.getString(R.string.user_not_authenticated)
-                }
-            } else {
+            } else
                 _messageLiveData.value = context.getString(R.string.empty_fields)
-            }
+
         }
     }
 }
