@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.feedarticlesjetpack.common.responseLoginStatus
+import com.example.feedarticlesjetpack.dataclass.LoginInfo
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -32,18 +33,23 @@ class LoginViewModel @Inject constructor(
 
     private val _statusLiveData = MutableLiveData<Int>()
 
+    val loginLiveData = MutableLiveData<String>().apply { postValue("") }
+    val passwordLiveData = MutableLiveData<String>().apply { postValue("") }
+
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
 
     val statusLiveData: LiveData<Int>
         get() = _statusLiveData
 
-    fun login(login: String, password: String) {
-        if (login.isNotBlank() && password.isNotBlank()) {
+
+
+    fun login() {
+        if (loginLiveData.value?.isNotBlank() == true && passwordLiveData.value?.isNotBlank() == true) {
             viewModelScope.launch {
 
                 val responseLogin: Response<SessionDto>? = withContext(Dispatchers.IO) {
-                    apiService.login(login, password)
+                    apiService.login(loginLiveData.value!!, passwordLiveData.value!!)
                 }
 
                 val body = responseLogin?.body()

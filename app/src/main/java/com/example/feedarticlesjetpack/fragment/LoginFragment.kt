@@ -43,15 +43,12 @@ class LoginFragment : Fragment() {
     ): View {
 
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding.viewModel = myViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.tvLoginToRegister.setOnClickListener {
             val navDir = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             view?.findNavController()?.navigate(navDir)
-        }
-
-        binding.btnLogin.setOnClickListener {
-            myViewModel.login(binding.loginData ?: "", binding.passwordData ?: "")
         }
 
         return binding.root
