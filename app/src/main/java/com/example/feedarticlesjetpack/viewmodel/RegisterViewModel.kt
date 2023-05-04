@@ -33,20 +33,24 @@ class RegisterViewModel @Inject constructor(
 
     private val _statusLiveData = MutableLiveData<Int>()
 
+    val loginLiveData = MutableLiveData<String>().apply { postValue("") }
+    val passwordLiveData = MutableLiveData<String>().apply { postValue("") }
+    val confirmPasswordLiveData = MutableLiveData<String>().apply { postValue("") }
+
     val messageLiveData: LiveData<String>
         get() = _messageLiveData
 
     val statusLiveData: LiveData<Int>
         get() = _statusLiveData
 
-    fun register(login: String, password: String, confirmPassword: String) {
-        if (login.isNotBlank() && password.isNotBlank()) {
-            if (validatePassword(password, confirmPassword)) {
+    fun register() {
+        if (loginLiveData.value?.isNotBlank() == true && passwordLiveData.value?.isNotBlank() == true) {
+            if (validatePassword()) {
 
                 viewModelScope.launch {
 
                     val responseRegister: Response<SessionDto>? = withContext(Dispatchers.IO) {
-                        apiService.register(RegisterDto(login, password))
+                        apiService.register(RegisterDto(loginLiveData.value!!, passwordLiveData.value!!))
                     }
 
                     val body = responseRegister?.body()
@@ -87,7 +91,7 @@ class RegisterViewModel @Inject constructor(
 
     }
 
-    private fun validatePassword(password: String, confirm: String): Boolean {
-        return password == confirm
+    private fun validatePassword(): Boolean {
+        return passwordLiveData.value == confirmPasswordLiveData.value
     }
 }

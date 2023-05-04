@@ -5,14 +5,9 @@
 
     <data>
         <variable
-            name="loginData"
-            type="String" />
-        <variable
-            name="passwordData"
-            type="String" />
-        <variable
-            name="confirmPasswordData"
-            type="String" />
+            name="viewModel"
+            type="com.example.feedarticlesjetpack.viewmodel.RegisterViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +45,7 @@
                 android:layout_height="48dp"
                 android:autofillHints="Login"
                 android:ems="10"
-                android:text="@={loginData}"
+                android:text="@={viewModel.loginLiveData}"
                 android:hint="@string/login_label"
                 android:inputType="textPersonName"
                 android:textColorHighlight="@color/blue_primary"
@@ -63,7 +58,7 @@
                 android:layout_marginTop="16dp"
                 android:autofillHints="Password"
                 android:ems="10"
-                android:text="@={passwordData}"
+                android:text="@={viewModel.passwordLiveData}"
                 android:hint="@string/password_label"
                 android:inputType="textPassword"
                 android:textColorHint="@color/blue_primary" />
@@ -75,7 +70,7 @@
                 android:layout_marginTop="16dp"
                 android:autofillHints="Confirm Password"
                 android:ems="10"
-                android:text="@={confirmPasswordData}"
+                android:text="@={viewModel.confirmPasswordLiveData}"
                 android:hint="@string/comfirmation_password"
                 android:inputType="textPassword"
                 android:textColorHint="@color/blue_primary" />
@@ -85,7 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="200dp"
-                android:text="@string/s_inscrire" />
+                android:text="@string/s_inscrire"
+                android:onClick="@{() -> viewModel.register()}"/>
 
 
         </LinearLayout>

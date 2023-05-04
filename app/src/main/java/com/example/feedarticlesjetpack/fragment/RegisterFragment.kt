@@ -45,15 +45,9 @@ class RegisterFragment : Fragment() {
     ): View {
 
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+        binding.viewModel = myViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.btnRegister.setOnClickListener {
-            myViewModel.register(
-                binding.loginData ?: "",
-                binding.passwordData ?: "",
-                binding.confirmPasswordData ?: ""
-            )
-        }
 
         return binding.root
     }
