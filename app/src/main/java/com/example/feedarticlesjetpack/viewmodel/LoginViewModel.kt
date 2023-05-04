@@ -4,7 +4,6 @@ import ERROR_403
 import SHAREDPREF_NAME
 import SHAREDPREF_SESSION_TOKEN
 import SHAREDPREF_SESSION_USER_ID
-import STATUS_USER_FAILURE
 import STATUS_USER_SUCCESS
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -19,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.feedarticlesjetpack.common.responseLoginStatus
-import com.example.feedarticlesjetpack.dataclass.LoginInfo
 import retrofit2.Response
 import javax.inject.Inject
 

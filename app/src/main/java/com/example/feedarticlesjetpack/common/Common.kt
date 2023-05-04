@@ -92,12 +92,12 @@ fun responseFavoriteStateArticleStatus(status: Int?, context: Context): String =
 
 
 //TO IMPROVE
-fun dateFormater(dateStr: String): String {
+fun dateFormatter(dateStr: String): String {
 
     val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val formatter = SimpleDateFormat("dd/MM/yyyy")
-    val dateFormated = parser.parse(dateStr)?.let { formatter.format(it) }
-    return dateFormated.toString()
+    val dateFormatted = parser.parse(dateStr)?.let { formatter.format(it) }
+    return dateFormatted.toString()
 }
 
 val categories = listOf(
@@ -111,11 +111,11 @@ fun getCategoryById(categoryId: Int): CategoryData? =
         element.id == categoryId
     }
 fun getStarIcon(isFav : Boolean): Int =
-    if(isFav) {
+    if(isFav)
         android.R.drawable.btn_star_big_on
-    } else {
+     else
         android.R.drawable.btn_star_big_off
-    }
+
 
 fun myPicassoFun(url: String, ivToInsert: ImageView ) {
     if (url.isEmpty()) {

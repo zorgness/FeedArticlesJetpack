@@ -11,13 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.feedarticlesjetpack.R
-import com.example.feedarticlesjetpack.common.dateFormater
+import com.example.feedarticlesjetpack.common.dateFormatter
 import com.example.feedarticlesjetpack.common.getCategoryById
 import com.example.feedarticlesjetpack.common.getStarIcon
 import com.example.feedarticlesjetpack.common.myPicassoFun
 import com.example.feedarticlesjetpack.databinding.FragmentDetailsArticleBinding
 import com.example.feedarticlesjetpack.extensions.bool
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.feedarticlesjetpack.extensions.myToast
 import com.example.feedarticlesjetpack.viewmodel.DetailsArticleFragmentViewModel
@@ -79,7 +78,7 @@ class DetailsArticleFragment : Fragment() {
             binding.tvArticleTitle.text = article.titre
             binding.tvArticleDescription.text = article.descriptif
             binding.tvArticleDate.text =
-                getString(R.string.created_at).format(dateFormater(article.createdAt))
+                getString(R.string.created_at).format(dateFormatter(article.createdAt))
             binding.tvArticleCategory.text =
                 getString(R.string.categorie).format(getCategoryById(article.categorie)?.name)
 

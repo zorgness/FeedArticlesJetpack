@@ -16,14 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.feedarticlesjetpack.R
 import com.example.feedarticlesjetpack.databinding.ItemRvArticleBinding
 import com.example.feedarticlesjetpack.dataclass.ArticleDto
-import com.squareup.picasso.Picasso
-import com.example.feedarticlesjetpack.common.dateFormater
+import com.example.feedarticlesjetpack.common.dateFormatter
 import com.example.feedarticlesjetpack.common.getCategoryById
 import com.example.feedarticlesjetpack.common.myPicassoFun
 import com.example.feedarticlesjetpack.fragment.MainFragmentDirections
-import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.properties.Delegates
 
 
 class ArticleDiffUtil : DiffUtil.ItemCallback<ArticleDto>() {
@@ -64,7 +61,7 @@ class ArticleAdapter:  ListAdapter<ArticleDto, ArticleAdapter.ArticleViewHolder>
             rlArticle.background = getCategoryById(article.categorie)?.color?.let { ContextCompat.getDrawable(rlArticle.context, it) }
 
             tvArticleTitle.text = article.titre
-            tvArticleDate.text = dateFormater(article.createdAt)
+            tvArticleDate.text = dateFormatter(article.createdAt)
             tvArticleDescription.text = article.descriptif
 
             ivFavorite.visibility = if(article.isFav == FAVORITE) View.VISIBLE else View.GONE
