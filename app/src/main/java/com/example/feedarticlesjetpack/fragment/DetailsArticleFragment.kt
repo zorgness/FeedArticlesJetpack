@@ -30,7 +30,7 @@ class DetailsArticleFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private val myViewModel: DetailsArticleFragmentViewModel by viewModels()
     private val args: DetailsArticleFragmentArgs by navArgs()
-    private lateinit var ivIconStar: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class DetailsArticleFragment : Fragment() {
         }
 
         myViewModel.isArticleFavoriteLiveData.observe(this) { isFavorite ->
-            ivIconStar.setImageResource(getStarIcon(isFavorite))
+            binding.ivBtnStar.setImageResource(getStarIcon(isFavorite))
         }
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -63,8 +63,6 @@ class DetailsArticleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsArticleBinding.inflate(inflater, container, false)
-
-        ivIconStar = binding.ivBtnStar
 
         binding.btnReturn.setOnClickListener {
             sharedViewModel.requestForRefreshArticlesList()

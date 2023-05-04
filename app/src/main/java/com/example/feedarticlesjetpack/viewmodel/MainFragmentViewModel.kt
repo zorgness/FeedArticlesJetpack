@@ -36,7 +36,7 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>()
 
-    private val _isFavFilterLiveData = MutableLiveData<Boolean>(false)
+    private val _isFavFilterLiveData = MutableLiveData<Boolean>()
 
     private val _messageLiveData = MutableLiveData<String>()
 
@@ -64,6 +64,7 @@ class MainFragmentViewModel @Inject constructor(
         get() = _progressBarVisibilityLiveData
 
     init {
+        _isFavFilterLiveData.value = false
         getArticlesListForArticleAdapter()
     }
 

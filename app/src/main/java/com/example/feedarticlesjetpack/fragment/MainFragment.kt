@@ -33,14 +33,12 @@ class MainFragment : Fragment() {
     private val myViewModel: MainFragmentViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
-    private lateinit var progressBar: ProgressBar
-    private lateinit var ivIconStar: ImageView
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         myViewModel.articlesLiveData.observe(this) { articles ->
-            swipeRefreshLayout.isRefreshing = false;
+            binding.swipeContainer.isRefreshing = false;
             articleAdapter.submitList(articles)
         }
 
@@ -53,11 +51,11 @@ class MainFragment : Fragment() {
         }
 
         myViewModel.progressBarVisibilityLiveData.observe(this) { visibility ->
-            progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+            binding.progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
         }
 
         myViewModel.isFavFilterLiveData.observe(this) { isFiltered ->
-            ivIconStar.setImageResource(getStarIcon(isFiltered))
+            binding.ivBtnFavoriteFilter.setImageResource(getStarIcon(isFiltered))
         }
 
         // NAV OPTIONS IS FOR CLEARING ALL BACKSTACK AFTER LOGOUT
@@ -89,11 +87,6 @@ class MainFragment : Fragment() {
         binding.rvArticles.layoutManager = LinearLayoutManager(container?.context)
         articleAdapter = ArticleAdapter()
         binding.rvArticles.adapter = articleAdapter
-
-        //TO CHANGE
-        progressBar = binding.pbCyclic
-        ivIconStar = binding.ivBtnFavoriteFilter
-        swipeRefreshLayout = binding.swipeContainer
 
 
         binding.btnLogout.setOnClickListener {
