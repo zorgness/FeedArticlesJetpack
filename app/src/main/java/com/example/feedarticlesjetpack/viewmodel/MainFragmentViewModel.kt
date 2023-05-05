@@ -36,7 +36,7 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _categoryIdLiveData = MutableLiveData<Int>()
 
-    private val _isFavFilterLiveData = MutableLiveData<Boolean>()
+    private val _isFavFilterLiveData = MutableLiveData<Boolean>(false)
 
     private val _messageLiveData = MutableLiveData<String>()
 
@@ -69,19 +69,16 @@ class MainFragmentViewModel @Inject constructor(
 
     fun getCheckedCategory(checkedId: Int) {
 
-        savedDataHashMap.removeCategoryId()
         _categoryIdLiveData.value = checkedId
+        savedDataHashMap.removeCategoryId()
         savedDataHashMap.set(CATEGORY_ID, categoryIdLiveData as LiveData<Any>)
         getArticlesListForArticleAdapter()
     }
 
     fun setFavoriteFilter() {
 
+        _isFavFilterLiveData.value = !isFavFilterLiveData.value!!
         savedDataHashMap.removeIsFavoriteFilter()
-        if(isFavFilterLiveData.value != null)
-            _isFavFilterLiveData.value = !isFavFilterLiveData.value!!
-        else
-            _isFavFilterLiveData.value = true
         savedDataHashMap.set(IS_FAVORITE_FILTER_ON, isFavFilterLiveData as LiveData<Any>)
         getArticlesListForArticleAdapter()
     }
@@ -145,6 +142,7 @@ class MainFragmentViewModel @Inject constructor(
         with(context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)) {
             edit().remove(SHAREDPREF_SESSION_TOKEN).remove(SHAREDPREF_SESSION_USER_ID).apply()
             _isLogoutLiveData.value = true
+            savedDataHashMap.clear()
             _messageLiveData.value = context.getString(R.string.bye_bye)
         }
     }

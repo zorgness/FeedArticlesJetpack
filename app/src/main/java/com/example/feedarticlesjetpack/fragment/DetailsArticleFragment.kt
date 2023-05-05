@@ -69,6 +69,7 @@ class DetailsArticleFragment : Fragment() {
             findNavController().navigate(R.id.mainFragment)
         }
 
+        //FILL THE DETAILS OF THE ARTICLE
         sharedViewModel.articleLiveData.observe(viewLifecycleOwner) { article ->
 
             myViewModel.getArticleFavoriteStatus(article.isFav.bool)
